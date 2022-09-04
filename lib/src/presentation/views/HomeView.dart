@@ -6,6 +6,7 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:mapata/src/presentation/blocs/home/HomeBloc.dart';
 import 'package:mapata/src/presentation/blocs/home/HomeState.dart';
 import 'package:mapata/src/presentation/blocs/home/HomeEvent.dart';
+import 'package:mapata/src/presentation/widgets/CustomButton.dart';
 
 import '../widgets/AppBarWidget.dart';
 
@@ -44,19 +45,28 @@ class HomeView extends StatelessWidget {
               state.homeUiModel.currentLocation!.longitude
           );
         }
-        return Container(
-          height: double.infinity,
-          child: GoogleMap(
-            mapType: MapType.normal,
-            myLocationEnabled: true,
-            initialCameraPosition: CameraPosition(
-              target: _myLocation,
-              zoom: 14,
+        return Stack(
+          children: [
+            Container(
+              height: double.infinity,
+              child: GoogleMap(
+                mapType: MapType.normal,
+                myLocationEnabled: true,
+                initialCameraPosition: CameraPosition(
+                  target: _myLocation,
+                  zoom: 14,
+                ),
+                onMapCreated: (GoogleMapController controller) {
+                  _mapController.complete(controller);
+                },
+              ),
             ),
-            onMapCreated: (GoogleMapController controller) {
-              _mapController.complete(controller);
-            },
-          ),
+            Container(
+              alignment: Alignment.bottomCenter,
+              padding: EdgeInsets.all(8),
+              child: CustomButton((){}, Icons.camera_alt, "Reportar mascota"),
+            )
+          ]
         );
       }
       return Center(
