@@ -2,7 +2,6 @@ import 'package:equatable/equatable.dart';
 
 import 'HomeUiModel.dart';
 
-
 class HomeState extends Equatable {
   const HomeState();
 

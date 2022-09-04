@@ -5,7 +5,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:mapata/src/injector.dart';
 import 'package:mapata/src/presentation/blocs/home/HomeBloc.dart';
-import 'package:mapata/src/presentation/blocs/home/HomeState.dart';
 import 'package:mapata/src/presentation/routes/AppRoutes.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
