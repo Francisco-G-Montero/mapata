@@ -5,6 +5,7 @@ const String kLANG_EN = 'en';
 //BASE URLS
 //ROUTES
 const String kRouteHome = '/home';
+const String kRouteProfile = '/profile';
 const String kStoresMapView = '/StoresMapView';
 //TABLE NAMES
 //COMMON

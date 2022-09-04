@@ -6,6 +6,7 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:mapata/src/presentation/blocs/home/HomeBloc.dart';
 import 'package:mapata/src/presentation/blocs/home/HomeState.dart';
 import 'package:mapata/src/presentation/blocs/home/HomeEvent.dart';
+import 'package:mapata/src/presentation/views/MainView.dart';
 import 'package:mapata/src/presentation/widgets/CustomButton.dart';
 
 import '../widgets/AppBarWidget.dart';
@@ -21,11 +22,11 @@ class HomeView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: const AppBarWidget("Mapata Maps", 60),
       body: _buildBody(),
     );
   }
   Widget _buildBody() {
+    print("Tab actual: home");
     return BlocBuilder<HomeBloc, HomeState>(builder: (_, state) {
       if (state is HomeLoading) {
         _.read<HomeBloc>().add(InitializeMap());

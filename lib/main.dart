@@ -5,8 +5,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:mapata/src/injector.dart';
 import 'package:mapata/src/presentation/blocs/home/HomeBloc.dart';
-import 'package:mapata/src/presentation/routes/AppRoutes.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:mapata/src/presentation/navigation/AppRoutes.dart';
+import 'package:mapata/src/presentation/views/MainView.dart';
 
 import 'src/data/util/Constants.dart';
 
@@ -42,8 +43,9 @@ class MyApp extends StatelessWidget {
           Locale(kLANG_EN, ''), // English, no country code
           Locale(kLANG_ES, ''), // Spanish, no country code
         ],
-        onGenerateRoute: AppRoutes.onGenerateRoutes,
-        initialRoute: kRouteHome,
+        //onGenerateRoute: AppRoutes.onGenerateRoutes,
+        //initialRoute: kRouteHome,
+        home: MainView(),
       ),
     );
   }
