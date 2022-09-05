@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -8,16 +9,28 @@ import 'package:mapata/src/presentation/blocs/home/HomeState.dart';
 import 'package:mapata/src/presentation/blocs/home/HomeEvent.dart';
 import 'package:mapata/src/presentation/views/MainView.dart';
 import 'package:mapata/src/presentation/widgets/CustomButton.dart';
+import 'package:mapata/src/presentation/widgets/ItemLegend.dart';
 
+import '../../data/util/MapsStyling.dart';
 import '../widgets/AppBarWidget.dart';
 
 import '../../data/util/Constants.dart';
 
-class HomeView extends StatelessWidget {
+class HomeView extends StatefulWidget {
+  @override
+  State<HomeView> createState() => _HomeViewState();
+}
+
+class _HomeViewState extends State<HomeView> {
   late GoogleMapController mapController;
+
   final Completer<GoogleMapController> _mapController = Completer();
+
   late StreamSubscription locationSubscription;
+
   LatLng _myLocation = const LatLng(-34.9191509, -57.9710679);
+
+  var isVisible = true;
 
   @override
   Widget build(BuildContext context) {
@@ -25,8 +38,8 @@ class HomeView extends StatelessWidget {
       body: _buildBody(),
     );
   }
+
   Widget _buildBody() {
-    print("Tab actual: home");
     return BlocBuilder<HomeBloc, HomeState>(builder: (_, state) {
       if (state is HomeLoading) {
         _.read<HomeBloc>().add(InitializeMap());
@@ -59,6 +72,7 @@ class HomeView extends StatelessWidget {
                 ),
                 onMapCreated: (GoogleMapController controller) {
                   _mapController.complete(controller);
+                  _setMapStyle(controller);
                 },
                 zoomControlsEnabled: false,
               ),
@@ -66,8 +80,47 @@ class HomeView extends StatelessWidget {
             Container(
               alignment: Alignment.bottomCenter,
               padding: EdgeInsets.all(8),
-              child: CustomButton((){}, Icons.camera_alt, "Reportar mascota"),
-            )
+              child: CustomButton(
+                      (){
+                        setState(() {
+                          isVisible = !isVisible;
+                        });
+                        },
+                  Icons.camera_alt,
+                  "Reportar mascota"),
+            ),
+            Container(
+              margin: EdgeInsets.all(8),
+              alignment: Alignment.topRight,
+              child: DecoratedBox(
+                decoration: BoxDecoration(borderRadius: BorderRadius.all(Radius.circular(4)),color: Colors.black12),
+                child: Padding(
+                  padding: EdgeInsets.all(8),
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      FittedBox(child: Text("Leyenda", style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),)),
+                      AnimatedSwitcher(
+                          duration: Duration(milliseconds: 100),
+                        child: isVisible ? Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+
+                          key: Key("isVisible"),
+                          children: [
+                            Container(height: 1, color: Colors.black12, width: 100,),
+                            ItemLegend("Animales perdidos", Colors.redAccent),
+                            ItemLegend("Animales en transito", Colors.yellowAccent),
+                            ItemLegend("Refugios", Colors.greenAccent),
+                          ],
+                        ) : Column(),
+                      )
+
+                    ],
+                  ),
+                ),
+              ),
+            ),
           ]
         );
       }
@@ -75,5 +128,9 @@ class HomeView extends StatelessWidget {
         child: Text("Algo inesperado ha ocurrido"),
       );
     });
+  }
+
+  void _setMapStyle(GoogleMapController controller) {
+    controller.setMapStyle(kMapsStyleConfig);
   }
 }
