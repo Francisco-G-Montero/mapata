@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:mapata/src/presentation/navigation/BottomNavigation.dart';
 import 'package:mapata/src/presentation/navigation/TabItem.dart';
-import 'package:mapata/src/presentation/navigation/TabNavigator.dart';
 import 'package:mapata/src/presentation/views/HomeView.dart';
 import 'package:mapata/src/presentation/views/ProfileView.dart';
+import 'package:mapata/src/presentation/widgets/AppBarWidget.dart';
+import 'package:mapata/src/presentation/widgets/NavigationDrawerWidget.dart';
 
 class MainView extends StatefulWidget {
   const MainView();
@@ -29,6 +29,8 @@ class _MainView extends State<MainView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBarWidget("Mapata", 55),
+      drawer: NavigationDrawerWidget(),
       body: Stack(
         children: [
           Offstage(
@@ -49,8 +51,8 @@ class _MainView extends State<MainView> {
           });
         },
         items: const [
-          BottomNavigationBarItem(icon: Text("1"), label: "Tab 1"),
-          BottomNavigationBarItem(icon: Text("2"), label: "Tab 2"),
+          BottomNavigationBarItem(icon: Icon(Icons.home), label: "Mapa"),
+          BottomNavigationBarItem(icon: Icon(Icons.person), label: "Perfil"),
         ],
       ),
     );

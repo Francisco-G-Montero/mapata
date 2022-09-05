@@ -60,6 +60,7 @@ class HomeView extends StatelessWidget {
                 onMapCreated: (GoogleMapController controller) {
                   _mapController.complete(controller);
                 },
+                zoomControlsEnabled: false,
               ),
             ),
             Container(
