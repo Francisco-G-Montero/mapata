@@ -49,3 +49,5 @@ dev_dependencies:
 flutter:
   uses-material-design: true
   generate: true # local resources (intl localization language)
+  assets:
+    - assets/markers/

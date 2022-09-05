@@ -10,3 +10,7 @@ class HomeEvent extends Equatable {
 class InitializeMap extends HomeEvent{
   const InitializeMap();
 }
+
+class LoadMarkers extends HomeEvent{
+  const LoadMarkers();
+}

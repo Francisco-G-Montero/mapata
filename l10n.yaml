@@ -1,4 +1,4 @@
 #resource locals file
 arb-dir: lib/src/data/util/l10n
-template-arb-file: app_en.arb
+template-arb-file: app_es.arb
 output-localization-file: app_localizations.dart

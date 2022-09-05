@@ -4,7 +4,7 @@ class ItemLegend extends StatelessWidget {
   final String text;
   final Color color;
 
-  ItemLegend(this.text, this.color);
+  const ItemLegend(this.text, this.color);
 
   @override
   Widget build(BuildContext context) {
@@ -13,7 +13,7 @@ class ItemLegend extends StatelessWidget {
       mainAxisSize: MainAxisSize.min,
       children: [
         Icon(Icons.circle, color: color,),
-        Text(text)
+        Text(text, style: TextStyle(color: Colors.white),)
       ],
     );
   }

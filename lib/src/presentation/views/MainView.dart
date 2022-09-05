@@ -4,6 +4,7 @@ import 'package:mapata/src/presentation/views/HomeView.dart';
 import 'package:mapata/src/presentation/views/ProfileView.dart';
 import 'package:mapata/src/presentation/widgets/AppBarWidget.dart';
 import 'package:mapata/src/presentation/widgets/NavigationDrawerWidget.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class MainView extends StatefulWidget {
   const MainView();
@@ -28,6 +29,7 @@ class _MainView extends State<MainView> {
 
   @override
   Widget build(BuildContext context) {
+    final locale = AppLocalizations.of(context)!;
     return Scaffold(
       appBar: AppBarWidget("Mapata", 55),
       drawer: NavigationDrawerWidget(),

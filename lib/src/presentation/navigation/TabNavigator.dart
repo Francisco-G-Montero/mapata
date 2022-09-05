@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:mapata/src/data/util/Constants.dart';
 import 'package:mapata/src/presentation/navigation/TabItem.dart';
 import 'package:mapata/src/presentation/views/HomeView.dart';
 import 'package:mapata/src/presentation/views/ProfileView.dart';

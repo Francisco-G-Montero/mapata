@@ -1,7 +1,7 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:ionicons/ionicons.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:mapata/src/data/util/Constants.dart';
 
 class NavigationDrawerWidget extends StatelessWidget {
   final padding = EdgeInsets.symmetric(horizontal: 10);
@@ -21,15 +21,15 @@ class NavigationDrawerWidget extends StatelessWidget {
               height: 48,
             ),
             _buildHeader(
-                title: "Mapata",
-                subtitle: "Ayuda a los animalitos",
+                title: kAppTitle,
+                subtitle: locale.ndw_subtitle,
                 image: headerImage,),
             Divider(
               color: Colors.white,
               height: 1,
             ),
             _buildMenuItem(
-                text: "Acerca de",
+                text: locale.ndw_about,
                 icon: Ionicons.list_circle,
                 onClicked: () => selectedItem(context, 0)),
             const SizedBox(
@@ -43,7 +43,7 @@ class NavigationDrawerWidget extends StatelessWidget {
               height: 12,
             ),
             _buildMenuItem(
-                text: "Próximamente", icon: Ionicons.code, onClicked: () {}),
+                text: locale.ndw_coming_soon, icon: Ionicons.code, onClicked: () {}),
           ],
         ),
       ),
@@ -52,8 +52,8 @@ class NavigationDrawerWidget extends StatelessWidget {
 
   Widget _buildMenuItem(
       {required String text, required IconData icon, VoidCallback? onClicked}) {
-    final color = Colors.white;
-    final hoverColor = Colors.white70;
+    const color = Colors.white;
+    const hoverColor = Colors.white70;
 
     return ListTile(
       leading: Icon(
@@ -126,5 +126,4 @@ class NavigationDrawerWidget extends StatelessWidget {
               ],
             ),
           ));
-
 }

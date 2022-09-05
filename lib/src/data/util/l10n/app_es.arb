@@ -1,3 +1,11 @@
 {
-  "helloWorld": "¡Hola Mundo!"
+  "ndw_subtitle" : "Ayuda a los animalitos",
+  "ndw_about" : "Acerca de",
+  "ndw_coming_soon" : "Próximamente",
+  "homeview_report_pet" : "Reportar mascota",
+  "homeview_legend" : "Leyenda",
+  "homeview_lost_pet" : "Animales perdidos",
+  "homeview_transito_pet" : "Animales en transito",
+  "homeview_shelters" : "Refugios",
+  "global_generic_error" : "Algo inesperado ha ocurrido"
 }
