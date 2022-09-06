@@ -5,10 +5,13 @@ import 'package:mapata/src/presentation/blocs/home/HomeEvent.dart';
 import 'package:mapata/src/presentation/blocs/home/HomeState.dart';
 import 'package:geolocator/geolocator.dart';
 
-import '../../../data/model/AnimalMarker.dart';
+import '../../../data/util/NetResult.dart';
+import '../../../domain/usecases/remote/GetAnimalMarkersUseCase.dart';
 
 class HomeBloc extends Bloc<HomeEvent, HomeState> {
-  HomeBloc() : super(const HomeLoading()) {
+  final GetAnimalMarkersUseCase _getAnimalMarkersUseCase;
+
+  HomeBloc(this._getAnimalMarkersUseCase) : super(const HomeLoading()) {
     on<InitializeMap>(_initializeMap);
     on<LoadMarkers>(_loadMarkers);
   }
@@ -33,7 +36,7 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
 
   FutureOr<void> _loadMarkers(event, emit) async {
     print("cargando animalMarker");
-    var animalMarkerList = <AnimalMarker>[
+    /*var animalMarkerList = <AnimalMarker>[
     AnimalMarker("place_name0", -34.9194897, -57.9564453, "Perrito", "Perdido",
         "assets/markers/icon_perdido.png"),
     AnimalMarker("place_name1", -34.9215817, -57.9528336, "Gatito", "Perdido",
@@ -42,9 +45,18 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
         "assets/markers/icon_transito.png"),
     AnimalMarker("place_name3", -34.9222768, -57.9554499, "Rescataditos LP", "Refugio",
         "assets/markers/icon_refugio.png"),
-    ];
-    final newState = HomeDone();
-    newState.homeUiModel = (state as HomeDone).homeUiModel.copyWith(animalMarkerList: animalMarkerList);
-    emit(newState);
+    ];*/
+
+    final dataResult = await _getAnimalMarkersUseCase();
+    dataResult.either((error) {
+      print("Error generico"); //TODO MEJORAR
+      return GenericFailure();
+    }, (animalMarkerList) {
+
+      final newState = HomeDone();
+      newState.homeUiModel = (state as HomeDone).homeUiModel.copyWith(animalMarkerList: animalMarkerList);
+      emit(newState);
+    });
+
   }
 }

@@ -7,5 +7,7 @@
   "homeview_lost_pet" : "Animales perdidos",
   "homeview_transito_pet" : "Animales en transito",
   "homeview_shelters" : "Refugios",
-  "global_generic_error" : "Algo inesperado ha ocurrido"
+  "global_generic_error" : "Algo inesperado ha ocurrido",
+  "navigation_home" : "Mapa",
+  "navigation_profile" : "Perfil"
 }

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:mapata/src/presentation/navigation/TabItem.dart';
+import 'package:mapata/src/data/util/Constants.dart';
 import 'package:mapata/src/presentation/views/HomeView.dart';
 import 'package:mapata/src/presentation/views/ProfileView.dart';
 import 'package:mapata/src/presentation/widgets/AppBarWidget.dart';
@@ -7,31 +7,20 @@ import 'package:mapata/src/presentation/widgets/NavigationDrawerWidget.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class MainView extends StatefulWidget {
-  const MainView();
+  const MainView({Key? key}) : super(key: key);
 
   @override
   State<MainView> createState() => _MainView();
 }
 
 class _MainView extends State<MainView> {
-  TabItem currentTab = TabItem.home;
   int currentIndex = 0;
-  Map<TabItem, GlobalKey<NavigatorState>> navigatorKeys = {
-    TabItem.home: GlobalKey<NavigatorState>(),
-    TabItem.profile: GlobalKey<NavigatorState>(),
-  };
-
-  void _selectTab(TabItem tabItem) {
-    setState(() {
-      currentTab = tabItem;
-    });
-  }
 
   @override
   Widget build(BuildContext context) {
     final locale = AppLocalizations.of(context)!;
     return Scaffold(
-      appBar: AppBarWidget("Mapata", 55),
+      appBar: AppBarWidget(kAppTitle, 55),
       drawer: NavigationDrawerWidget(),
       body: Stack(
         children: [
@@ -52,9 +41,9 @@ class _MainView extends State<MainView> {
             currentIndex = index;     /// Switching tabs
           });
         },
-        items: const [
-          BottomNavigationBarItem(icon: Icon(Icons.home), label: "Mapa"),
-          BottomNavigationBarItem(icon: Icon(Icons.person), label: "Perfil"),
+        items: [
+          BottomNavigationBarItem(icon: Icon(Icons.home), label: locale.navigation_home),
+          BottomNavigationBarItem(icon: Icon(Icons.person), label: locale.navigation_profile),
         ],
       ),
     );

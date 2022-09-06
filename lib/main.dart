@@ -7,11 +7,16 @@ import 'package:mapata/src/injector.dart';
 import 'package:mapata/src/presentation/blocs/home/HomeBloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:mapata/src/presentation/views/MainView.dart';
+import 'package:firebase_core/firebase_core.dart';
 
+import 'firebase_options.dart';
 import 'src/data/util/Constants.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(
+      options: DefaultFirebaseOptions.currentPlatform
+  );
   await initializeDependencies();
   runApp(const MyApp());
 }

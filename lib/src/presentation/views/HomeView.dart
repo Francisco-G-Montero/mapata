@@ -47,6 +47,12 @@ class _HomeViewState extends State<HomeView> {
 
   _getMarkers(List<AnimalMarker> animalMarkerList) {
     animalMarkerList.forEach((animalMarker) async {
+      print(
+          "animalMarkerList: ${animalMarker.title},"
+              " lat: ${animalMarker.lat} "
+              "lng: ${animalMarker.lng}"
+              " description: ${animalMarker.description}"
+              " imageUrl: ${animalMarker.imageUrl} id: ${animalMarker.id}");
       Uint8List markerbitmap = await getBytesFromAsset(animalMarker.imageUrl, 100);
       markers.add(Marker(
           //add start location marker
@@ -57,6 +63,9 @@ class _HomeViewState extends State<HomeView> {
             snippet: animalMarker.description,
           ),
           icon: BitmapDescriptor.fromBytes(markerbitmap)));
+      setState(() {
+        this.markers = markers;
+      });
     });
   }
 
