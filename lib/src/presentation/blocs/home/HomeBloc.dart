@@ -1,17 +1,21 @@
 import 'dart:async';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:mapata/src/data/model/AnimalMarker.dart';
 import 'package:mapata/src/presentation/blocs/home/HomeEvent.dart';
 import 'package:mapata/src/presentation/blocs/home/HomeState.dart';
 import 'package:geolocator/geolocator.dart';
+import 'package:mapata/src/presentation/blocs/home/HomeUiModel.dart';
 
 import '../../../data/util/NetResult.dart';
 import '../../../domain/usecases/remote/GetAnimalMarkersUseCase.dart';
+import '../../../domain/usecases/remote/GetAnimalMarkersUseCase2.dart';
 
 class HomeBloc extends Bloc<HomeEvent, HomeState> {
   final GetAnimalMarkersUseCase _getAnimalMarkersUseCase;
+  final GetAnimalMarkersUseCase2 _getAnimalMarkersUseCase2;
 
-  HomeBloc(this._getAnimalMarkersUseCase) : super(const HomeLoading()) {
+  HomeBloc(this._getAnimalMarkersUseCase, this._getAnimalMarkersUseCase2) : super(const HomeLoading()) {
     on<InitializeMap>(_initializeMap);
     on<LoadMarkers>(_loadMarkers);
   }
@@ -28,7 +32,7 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
         speedAccuracy: 0,
         floor: null,
         timestamp: null);
-    final newState = HomeDone();
+    final newState = HomeDone(streamController: null);
     newState.homeUiModel =
         newState.homeUiModel.copyWith(currentLocation: currentLocation);
     emit(newState);
@@ -46,17 +50,20 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
     AnimalMarker("place_name3", -34.9222768, -57.9554499, "Rescataditos LP", "Refugio",
         "assets/markers/icon_refugio.png"),
     ];*/
-
     final dataResult = await _getAnimalMarkersUseCase();
     dataResult.either((error) {
       print("Error generico"); //TODO MEJORAR
       return GenericFailure();
     }, (animalMarkerList) {
-
-      final newState = HomeDone();
+      final newState = HomeDone(streamController: _getAnimalMarkersUseCase2());
       newState.homeUiModel = (state as HomeDone).homeUiModel.copyWith(animalMarkerList: animalMarkerList);
       emit(newState);
     });
-
+    /*_getAnimalMarkersUseCase2().stream.listen((event) {
+      print("home bloc listener $event");
+      final newState = HomeLoading();
+      //newState.homeUiModel = HomeUiModel(animalMarkerList: event);
+      emit(newState);
+    });*/
   }
 }

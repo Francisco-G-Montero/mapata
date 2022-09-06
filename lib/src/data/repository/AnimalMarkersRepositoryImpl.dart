@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:mapata/src/data/model/AnimalMarker.dart';
 import 'package:mapata/src/data/util/NetResult.dart';
 import '../../domain/repository/AnimalMarkersRepository.dart';
@@ -18,5 +20,10 @@ class AnimalMarkersRepositoryImpl implements AnimalMarkersRepository {
       return DataResult.failure(GenericFailure());
     });
     return animalMarkerList;
+  }
+
+  @override
+  StreamController getAnimalMarkers2() {
+    return _realtimeDatabaseService.getAnimalMarkers2();
   }
 }

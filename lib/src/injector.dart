@@ -6,6 +6,7 @@ import 'package:mapata/src/presentation/blocs/home/HomeBloc.dart';
 
 import 'data/datasource/remote/RealtimeDatabaseService.dart';
 import 'data/repository/AnimalMarkersRepositoryImpl.dart';
+import 'domain/usecases/remote/GetAnimalMarkersUseCase2.dart';
 
 final injector = GetIt.instance;
 
@@ -18,6 +19,7 @@ Future<void> initializeDependencies() async {
   injector.registerSingleton<AnimalMarkersRepository>(AnimalMarkersRepositoryImpl(injector()));
   //usecases
   injector.registerSingleton<GetAnimalMarkersUseCase>(GetAnimalMarkersUseCase(injector()));
+  injector.registerSingleton<GetAnimalMarkersUseCase2>(GetAnimalMarkersUseCase2(injector()));
   //blocs
-  injector.registerFactory<HomeBloc>(() => HomeBloc(injector()));
+  injector.registerFactory<HomeBloc>(() => HomeBloc(injector(),injector()));
 }

@@ -16,7 +16,7 @@ class AnimalMarker extends Equatable{
   AnimalMarker({this.id = "", required this.lat, required this.lng, required this.title, required this.description, required this.imageUrl});
 
   @override
-  List<Object?> get props => [];
+  List<Object?> get props => [id, lat, lng, title, description,imageUrl];
 
   factory AnimalMarker.fromJson(Map<String, Object?> json) => _$AnimalMarkerFromJson(json);
 

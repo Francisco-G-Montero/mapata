@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:firebase_database/firebase_database.dart';
 import 'package:mapata/src/data/model/AnimalMarker.dart';
 
@@ -7,6 +9,40 @@ class RealtimeDatabaseService {
 
   DatabaseReference _getMarkersReference() {
     return FirebaseDatabase.instance.ref('markers');
+  }
+
+  StreamController getAnimalMarkers2() {
+    final streamController = StreamController<List<AnimalMarker>>();
+    var animalMarkerList = <AnimalMarker>[];
+    _getMarkersReference()
+        .onChildAdded.listen((event) {
+      final data = event.snapshot.value;
+      final dataValue = new Map<String, dynamic>.from(data as Map);
+      final animalMarker = AnimalMarker.fromJson(dataValue);
+      animalMarker.id = data.keys.first!;
+      animalMarkerList.add(animalMarker);
+      /*data.children.forEach((element) {
+        if(element != null){
+          final dataValue = new Map<String, dynamic>.from(data as Map);
+          final animalMarker = AnimalMarker.fromJson(dataValue);
+          animalMarker.id = element.key!;
+          print("listener getAnimalMarkers2");
+          animalMarkerList.add(animalMarker);
+        }
+      });*/
+      streamController.sink.add(animalMarkerList);
+    });
+    _getMarkersReference()
+        .onChildChanged.listen((event) {
+      final data = event.snapshot.value;
+      final dataValue = new Map<String, dynamic>.from(data as Map);
+      final animalMarker = AnimalMarker.fromJson(dataValue);
+      animalMarker.id = data.keys.first!;
+      animalMarkerList.removeWhere((element) => element.id == animalMarker.id);
+      animalMarkerList.add(animalMarker);
+      streamController.sink.add(animalMarkerList);
+    });
+    return streamController;
   }
 
   Future<List<AnimalMarker>> getAnimalMarkers() async {
