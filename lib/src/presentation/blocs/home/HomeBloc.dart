@@ -39,17 +39,7 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
   }
 
   FutureOr<void> _loadMarkers(event, emit) async {
-    print("cargando animalMarker");
-    /*var animalMarkerList = <AnimalMarker>[
-    AnimalMarker("place_name0", -34.9194897, -57.9564453, "Perrito", "Perdido",
-        "assets/markers/icon_perdido.png"),
-    AnimalMarker("place_name1", -34.9215817, -57.9528336, "Gatito", "Perdido",
-        "assets/markers/icon_perdido.png"),
-    AnimalMarker("place_name2", -34.920117, -57.9575637, "Gatito", "En tránsito",
-        "assets/markers/icon_transito.png"),
-    AnimalMarker("place_name3", -34.9222768, -57.9554499, "Rescataditos LP", "Refugio",
-        "assets/markers/icon_refugio.png"),
-    ];*/
+
     final dataResult = await _getAnimalMarkersUseCase();
     dataResult.either((error) {
       print("Error generico"); //TODO MEJORAR
@@ -59,11 +49,5 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
       newState.homeUiModel = (state as HomeDone).homeUiModel.copyWith(animalMarkerList: animalMarkerList);
       emit(newState);
     });
-    /*_getAnimalMarkersUseCase2().stream.listen((event) {
-      print("home bloc listener $event");
-      final newState = HomeLoading();
-      //newState.homeUiModel = HomeUiModel(animalMarkerList: event);
-      emit(newState);
-    });*/
   }
 }

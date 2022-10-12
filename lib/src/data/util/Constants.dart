@@ -7,6 +7,7 @@ const String kLANG_EN = 'en';
 const String kRouteHome = '/home';
 const String kRouteProfile = '/profile';
 const String kStoresMapView = '/StoresMapView';
+const String kRouteCreatePost = '/createPost';
 //TABLE NAMES
 //COMMON
 const String kGenericError = 'GENERIC_ERROR';

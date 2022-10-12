@@ -2,6 +2,7 @@ import 'package:dio/dio.dart';
 import 'package:get_it/get_it.dart';
 import 'package:mapata/src/domain/repository/AnimalMarkersRepository.dart';
 import 'package:mapata/src/domain/usecases/remote/GetAnimalMarkersUseCase.dart';
+import 'package:mapata/src/presentation/blocs/createPost/PostBloc.dart';
 import 'package:mapata/src/presentation/blocs/home/HomeBloc.dart';
 
 import 'data/datasource/remote/RealtimeDatabaseService.dart';
@@ -22,4 +23,5 @@ Future<void> initializeDependencies() async {
   injector.registerSingleton<GetAnimalMarkersUseCase2>(GetAnimalMarkersUseCase2(injector()));
   //blocs
   injector.registerFactory<HomeBloc>(() => HomeBloc(injector(),injector()));
+  injector.registerFactory<PostBloc>(() => PostBloc());
 }

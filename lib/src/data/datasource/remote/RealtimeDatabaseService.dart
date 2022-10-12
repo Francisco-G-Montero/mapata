@@ -21,15 +21,6 @@ class RealtimeDatabaseService {
       final animalMarker = AnimalMarker.fromJson(dataValue);
       animalMarker.id = data.keys.first!;
       animalMarkerList.add(animalMarker);
-      /*data.children.forEach((element) {
-        if(element != null){
-          final dataValue = new Map<String, dynamic>.from(data as Map);
-          final animalMarker = AnimalMarker.fromJson(dataValue);
-          animalMarker.id = element.key!;
-          print("listener getAnimalMarkers2");
-          animalMarkerList.add(animalMarker);
-        }
-      });*/
       streamController.sink.add(animalMarkerList);
     });
     _getMarkersReference()

@@ -4,8 +4,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:mapata/src/injector.dart';
+import 'package:mapata/src/presentation/blocs/createPost/PostBloc.dart';
 import 'package:mapata/src/presentation/blocs/home/HomeBloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:mapata/src/presentation/navigation/AppRoutes.dart';
 import 'package:mapata/src/presentation/views/MainView.dart';
 import 'package:firebase_core/firebase_core.dart';
 
@@ -14,9 +16,7 @@ import 'src/data/util/Constants.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp(
-      options: DefaultFirebaseOptions.currentPlatform
-  );
+  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   await initializeDependencies();
   runApp(const MyApp());
 }
@@ -28,8 +28,8 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiBlocProvider(
       providers: [
-        BlocProvider<HomeBloc>(
-            create: (context) => injector()..add),
+        BlocProvider<HomeBloc>(create: (context) => injector()..add),
+        BlocProvider<PostBloc>(create: (context) => injector()..add),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
@@ -50,6 +50,7 @@ class MyApp extends StatelessWidget {
         //onGenerateRoute: AppRoutes.onGenerateRoutes,
         //initialRoute: kRouteHome,
         home: MainView(),
+        onGenerateRoute: AppRoutes.onGenerateRoutes,
       ),
     );
   }

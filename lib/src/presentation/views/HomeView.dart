@@ -57,7 +57,6 @@ class _HomeViewState extends State<HomeView> {
             snippet: animalMarker.description,
           ),
           icon: BitmapDescriptor.fromBytes(markerbitmap)));
-      print("home bloc listener markers");
       setState(() {
         this.markers = markers;
       });
@@ -125,7 +124,11 @@ class _HomeViewState extends State<HomeView> {
             Container(
               alignment: Alignment.bottomCenter,
               padding: EdgeInsets.all(8),
-              child: CustomButton(() {}, Icons.camera_alt, locale.homeview_report_pet),
+              child: CustomButton(
+                      () {
+                        Navigator.pushNamed(context, kRouteCreatePost);
+                      },
+                  Icons.camera_alt, locale.homeview_report_pet),
             ),
             GestureDetector(
               onTap: () {
