@@ -48,15 +48,19 @@ class _HomeViewState extends State<HomeView> {
   _getMarkers(List<AnimalMarker> animalMarkerList) {
     animalMarkerList.forEach((animalMarker) async {
       Uint8List markerbitmap = await getBytesFromAsset(animalMarker.imageUrl, 100);
-      markers.add(Marker(
-          //add start location marker
-          markerId: MarkerId(animalMarker.id),
-          position: LatLng(animalMarker.lat, animalMarker.lng),
-          infoWindow: InfoWindow(
-            title: animalMarker.title,
-            snippet: animalMarker.description,
-          ),
-          icon: BitmapDescriptor.fromBytes(markerbitmap)));
+      markers.add(
+          Marker(
+            //add start location marker
+              markerId: MarkerId(animalMarker.id),
+              position: LatLng(animalMarker.lat, animalMarker.lng),
+              infoWindow: InfoWindow(
+                title: animalMarker.title,
+                snippet: animalMarker.description,
+                onTap: () {
+                  Navigator.pushNamed(context, kRouteViewPost, arguments: animalMarker.postId);
+                },
+              ),
+              icon: BitmapDescriptor.fromBytes(markerbitmap)));
       setState(() {
         this.markers = markers;
       });
@@ -77,7 +81,7 @@ class _HomeViewState extends State<HomeView> {
         if (state is HomeDone) {
           _getMarkers(state.homeUiModel.animalMarkerList);
 
-          if (state.streamController != null){
+          if (state.streamController != null) {
             state.streamController!.stream.listen((event) {
               _getMarkers(event);
             });
@@ -124,11 +128,9 @@ class _HomeViewState extends State<HomeView> {
             Container(
               alignment: Alignment.bottomCenter,
               padding: EdgeInsets.all(8),
-              child: CustomButton(
-                      () {
-                        Navigator.pushNamed(context, kRouteCreatePost);
-                      },
-                  Icons.camera_alt, locale.homeview_report_pet),
+              child: CustomButton(() {
+                Navigator.pushNamed(context, kRouteCreatePost);
+              }, Icons.camera_alt, locale.homeview_report_pet),
             ),
             GestureDetector(
               onTap: () {
@@ -150,27 +152,27 @@ class _HomeViewState extends State<HomeView> {
                       children: [
                         FittedBox(
                             child: Text(
-                          locale.homeview_legend,
-                          style: TextStyle(
-                              fontSize: 20, fontWeight: FontWeight.bold, color: Colors.white),
-                        )),
+                              locale.homeview_legend,
+                              style: TextStyle(
+                                  fontSize: 20, fontWeight: FontWeight.bold, color: Colors.white),
+                            )),
                         AnimatedSwitcher(
                           duration: Duration(milliseconds: 100),
                           child: isVisible
                               ? Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  key: Key(isVisible.toString()),
-                                  children: [
-                                    Container(
-                                      height: 1,
-                                      color: Colors.black12,
-                                      width: 100,
-                                    ),
-                                    ItemLegend(locale.homeview_lost_pet, Colors.redAccent),
-                                    ItemLegend(locale.homeview_transito_pet, Colors.yellowAccent),
-                                    ItemLegend(locale.homeview_shelters, Colors.greenAccent),
-                                  ],
-                                )
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            key: Key(isVisible.toString()),
+                            children: [
+                              Container(
+                                height: 1,
+                                color: Colors.black12,
+                                width: 100,
+                              ),
+                              ItemLegend(locale.homeview_lost_pet, Colors.redAccent),
+                              ItemLegend(locale.homeview_transito_pet, Colors.yellowAccent),
+                              ItemLegend(locale.homeview_shelters, Colors.greenAccent),
+                            ],
+                          )
                               : Column(),
                         )
                       ],

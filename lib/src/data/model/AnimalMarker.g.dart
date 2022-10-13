@@ -13,6 +13,7 @@ AnimalMarker _$AnimalMarkerFromJson(Map<String, dynamic> json) => AnimalMarker(
       title: json['title'] as String,
       description: json['description'] as String,
       imageUrl: json['imageUrl'] as String,
+      postId: json['postId'] as String,
     );
 
 Map<String, dynamic> _$AnimalMarkerToJson(AnimalMarker instance) =>
@@ -23,4 +24,5 @@ Map<String, dynamic> _$AnimalMarkerToJson(AnimalMarker instance) =>
       'title': instance.title,
       'description': instance.description,
       'imageUrl': instance.imageUrl,
+      'postId': instance.postId,
     };

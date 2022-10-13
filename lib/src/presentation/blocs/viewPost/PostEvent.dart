@@ -10,7 +10,3 @@ class PostEvent extends Equatable {
 class RenderPost extends PostEvent{
   const RenderPost();
 }
-
-class CreatePost extends PostEvent{
-  const CreatePost();
-}

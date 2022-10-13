@@ -4,9 +4,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:mapata/src/injector.dart';
-import 'package:mapata/src/presentation/blocs/createPost/PostBloc.dart';
+import 'package:mapata/src/presentation/blocs/createPost/CreatePostBloc.dart';
 import 'package:mapata/src/presentation/blocs/home/HomeBloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:mapata/src/presentation/blocs/viewPost/PostBloc.dart';
 import 'package:mapata/src/presentation/navigation/AppRoutes.dart';
 import 'package:mapata/src/presentation/views/MainView.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -29,6 +30,7 @@ class MyApp extends StatelessWidget {
     return MultiBlocProvider(
       providers: [
         BlocProvider<HomeBloc>(create: (context) => injector()..add),
+        BlocProvider<CreatePostBloc>(create: (context) => injector()..add),
         BlocProvider<PostBloc>(create: (context) => injector()..add),
       ],
       child: MaterialApp(

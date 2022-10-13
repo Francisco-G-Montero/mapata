@@ -4,6 +4,7 @@ import 'package:mapata/src/presentation/views/HomeView.dart';
 import 'package:mapata/src/presentation/views/ProfileView.dart';
 
 import '../views/posts/CreatePostView.dart';
+import '../views/posts/PostView.dart';
 
 class AppRoutes {
   static Route? onGenerateRoutes(RouteSettings settings) {
@@ -15,6 +16,12 @@ class AppRoutes {
         return _materialRoute(ProfileView());
       case kRouteCreatePost:
         return _materialRoute(CreatePostView());
+      case kRouteViewPost:
+        if(arguments is String){
+          //si viene un argumento con el id del post, navego al post y ahi dentro cargo la data
+          return _materialRoute(PostView(arguments));
+        }
+        break;
       default:
         return null;
     }

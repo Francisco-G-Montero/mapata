@@ -8,6 +8,7 @@ const String kRouteHome = '/home';
 const String kRouteProfile = '/profile';
 const String kStoresMapView = '/StoresMapView';
 const String kRouteCreatePost = '/createPost';
+const String kRouteViewPost = '/viewPost';
 //TABLE NAMES
 //COMMON
 const String kGenericError = 'GENERIC_ERROR';
