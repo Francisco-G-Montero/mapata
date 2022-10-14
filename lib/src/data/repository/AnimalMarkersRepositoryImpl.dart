@@ -1,18 +1,18 @@
 import 'dart:async';
 
+import 'package:mapata/src/data/datasource/remote/MarkersDatabase.dart';
 import 'package:mapata/src/data/model/AnimalMarker.dart';
 import 'package:mapata/src/data/util/NetResult.dart';
 import '../../domain/repository/AnimalMarkersRepository.dart';
-import '../datasource/remote/RealtimeDatabaseService.dart';
 
 class AnimalMarkersRepositoryImpl implements AnimalMarkersRepository {
-  final RealtimeDatabaseService _realtimeDatabaseService;
+  final MarkersDatabase _markersDatabase;
 
-  AnimalMarkersRepositoryImpl(this._realtimeDatabaseService);
+  AnimalMarkersRepositoryImpl(this._markersDatabase);
 
   @override
   Future<DataResult<List<AnimalMarker>>> getAnimalMarkers() async {
-    final animalMarkerList = _realtimeDatabaseService
+    final animalMarkerList = _markersDatabase
         .getAnimalMarkers()
         .then((value) => DataResult.success(value))
         .onError((error, stackTrace) {
@@ -23,7 +23,13 @@ class AnimalMarkersRepositoryImpl implements AnimalMarkersRepository {
   }
 
   @override
-  StreamController getAnimalMarkers2() {
-    return _realtimeDatabaseService.getAnimalMarkers2();
+  StreamController getRealtimeAnimalMarkers() {
+    return _markersDatabase.getRealtimeAnimalMarkers();
+  }
+
+  @override
+  Future<DataResult<void>> createAnimalMarker(AnimalMarker animalMarker) {
+    // TODO: implement createAnimalMarker
+    throw UnimplementedError();
   }
 }

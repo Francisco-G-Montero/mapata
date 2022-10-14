@@ -9,13 +9,11 @@ import 'package:mapata/src/presentation/blocs/home/HomeUiModel.dart';
 
 import '../../../data/util/NetResult.dart';
 import '../../../domain/usecases/remote/GetAnimalMarkersUseCase.dart';
-import '../../../domain/usecases/remote/GetAnimalMarkersUseCase2.dart';
 
 class HomeBloc extends Bloc<HomeEvent, HomeState> {
   final GetAnimalMarkersUseCase _getAnimalMarkersUseCase;
-  final GetAnimalMarkersUseCase2 _getAnimalMarkersUseCase2;
 
-  HomeBloc(this._getAnimalMarkersUseCase, this._getAnimalMarkersUseCase2) : super(const HomeLoading()) {
+  HomeBloc(this._getAnimalMarkersUseCase) : super(const HomeLoading()) {
     on<InitializeMap>(_initializeMap);
     on<LoadMarkers>(_loadMarkers);
   }
@@ -40,12 +38,12 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
 
   FutureOr<void> _loadMarkers(event, emit) async {
 
-    final dataResult = await _getAnimalMarkersUseCase();
+    final dataResult = await _getAnimalMarkersUseCase.getAnimalMarkers();
     dataResult.either((error) {
       print("Error generico"); //TODO MEJORAR
       return GenericFailure();
     }, (animalMarkerList) {
-      final newState = HomeDone(streamController: _getAnimalMarkersUseCase2());
+      final newState = HomeDone(streamController: _getAnimalMarkersUseCase.getRealtimeAnimalMarkers());
       newState.homeUiModel = (state as HomeDone).homeUiModel.copyWith(animalMarkerList: animalMarkerList);
       emit(newState);
     });

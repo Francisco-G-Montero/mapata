@@ -5,5 +5,6 @@ import '../../data/util/NetResult.dart';
 
 abstract class AnimalMarkersRepository {
   Future<DataResult<List<AnimalMarker>>> getAnimalMarkers();
-  StreamController getAnimalMarkers2();
+  StreamController getRealtimeAnimalMarkers();
+  Future<DataResult<void>> createAnimalMarker(AnimalMarker animalMarker);
 }
