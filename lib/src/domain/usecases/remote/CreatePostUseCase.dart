@@ -25,6 +25,8 @@ class CreatePostUseCase {
       ImageBitmap postImage,
       String title,
       String description,
+      int age,
+      String gender,
       String postOwnerId,
       String transitanteId,
       String adopterId,
@@ -39,6 +41,8 @@ class CreatePostUseCase {
           imageUrl: imageResult.data!,
           title: title,
           description: description,
+          age: age,
+          gender: gender,
           postOwnerId: postOwnerId,
           transitanteId: transitanteId,
           adopterId: adopterId);

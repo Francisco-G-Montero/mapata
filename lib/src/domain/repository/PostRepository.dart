@@ -1,5 +1,3 @@
-import 'dart:html';
-
 import '../../data/model/Post.dart';
 import '../../data/util/NetResult.dart';
 
