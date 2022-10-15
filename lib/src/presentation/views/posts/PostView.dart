@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
+import '../../../data/model/Post.dart';
 import '../../blocs/viewPost/PostBloc.dart';
 import '../../blocs/viewPost/PostEvent.dart';
 import '../../blocs/viewPost/PostState.dart';
@@ -28,6 +29,7 @@ class PostView extends StatelessWidget {
         );
       }
       if(state is PostDone) {
+        Post post = state.post;
         return Container(
           color: Colors.white,
           child: Center(

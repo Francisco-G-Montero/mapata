@@ -2,6 +2,8 @@ import 'dart:async';
 
 import 'package:equatable/equatable.dart';
 
+import '../../../data/model/Post.dart';
+
 class PostState extends Equatable {
   const PostState();
 
@@ -18,9 +20,10 @@ class PostError extends PostState {
 }
 
 class PostDone extends PostState {
+  Post post;
 
-  PostDone();
+  PostDone({required this.post});
 
   @override
-  List<Object?> get props => [];
+  List<Object?> get props => [post];
 }

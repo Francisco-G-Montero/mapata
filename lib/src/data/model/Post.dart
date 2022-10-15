@@ -10,6 +10,8 @@ class Post extends Equatable {
   final String imageUrl;
   final String title;
   final String description;
+  final int age;
+  final String gender;
   final String postOwnerId;
   final String transitanteId;
   final String adopterId;
@@ -20,12 +22,14 @@ class Post extends Equatable {
       required this.imageUrl,
       required this.title,
       required this.description,
+      required this.age,
+      required this.gender,
       required this.postOwnerId,
       required this.transitanteId,
       required this.adopterId});
 
   @override
-  List<Object?> get props => [id, date, imageUrl, title, description, postOwnerId, transitanteId, adopterId];
+  List<Object?> get props => [id, date, imageUrl, title, description, age, gender, postOwnerId, transitanteId, adopterId];
 
   factory Post.fromJson(Map<String, Object?> json) => _$PostFromJson(json);
 
