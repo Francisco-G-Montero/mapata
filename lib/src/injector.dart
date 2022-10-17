@@ -10,6 +10,7 @@ import 'package:mapata/src/domain/repository/AnimalMarkersRepository.dart';
 import 'package:mapata/src/domain/repository/StorageRepository.dart';
 import 'package:mapata/src/domain/repository/PostRepository.dart';
 import 'package:mapata/src/domain/usecases/remote/CreatePostUseCase.dart';
+import 'package:mapata/src/domain/usecases/remote/EditPostUseCase.dart';
 import 'package:mapata/src/domain/usecases/remote/GetAnimalMarkersUseCase.dart';
 import 'package:mapata/src/presentation/blocs/createPost/CreatePostBloc.dart';
 import 'package:mapata/src/presentation/blocs/home/HomeBloc.dart';
@@ -40,8 +41,10 @@ Future<void> initializeDependencies() async {
   injector.registerSingleton<GetAnimalMarkersUseCase>(GetAnimalMarkersUseCase(injector()));
   injector.registerSingleton<CreatePostUseCase>(
       CreatePostUseCase(injector(), injector(), injector(), injector()));
+  injector.registerSingleton<EditPostUseCase>(
+      EditPostUseCase(injector(), injector()));
   //blocs
   injector.registerFactory<HomeBloc>(() => HomeBloc(injector()));
-  injector.registerFactory<CreatePostBloc>(() => CreatePostBloc(injector()));
+  injector.registerFactory<CreatePostBloc>(() => CreatePostBloc(injector(), injector()));
   injector.registerFactory<PostBloc>(() => PostBloc());
 }
