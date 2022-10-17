@@ -2,10 +2,12 @@ import 'package:dio/dio.dart';
 import 'package:get_it/get_it.dart';
 import 'package:mapata/src/data/datasource/remote/MarkersDatabase.dart';
 import 'package:mapata/src/data/datasource/remote/PostDatabase.dart';
+import 'package:mapata/src/data/datasource/remote/PostStorage.dart';
 import 'package:mapata/src/data/datasource/services/GeolocationService.dart';
-import 'package:mapata/src/data/repository/ImageStorageRepositoryImpl.dart';
+import 'package:mapata/src/data/datasource/services/StorageService.dart';
+import 'package:mapata/src/data/repository/StorageRepositoryImpl.dart';
 import 'package:mapata/src/domain/repository/AnimalMarkersRepository.dart';
-import 'package:mapata/src/domain/repository/ImageStorageRepository.dart';
+import 'package:mapata/src/domain/repository/StorageRepository.dart';
 import 'package:mapata/src/domain/repository/PostRepository.dart';
 import 'package:mapata/src/domain/usecases/remote/CreatePostUseCase.dart';
 import 'package:mapata/src/domain/usecases/remote/GetAnimalMarkersUseCase.dart';
@@ -24,13 +26,16 @@ Future<void> initializeDependencies() async {
   injector.registerSingleton<Dio>(Dio());
   //services
   injector.registerSingleton<RealtimeDatabaseService>(RealtimeDatabaseService());
+  injector.registerSingleton<GeolocationService>(GeolocationService());
+  injector.registerSingleton<StorageService>(StorageService());
+  //Backend Access
   injector.registerSingleton<MarkersDatabase>(MarkersDatabase(injector()));
   injector.registerSingleton<PostsDatabase>(PostsDatabase(injector()));
-  injector.registerSingleton<GeolocationService>(GeolocationService());
+  injector.registerSingleton<PostStorage>(PostStorage(injector()));
   //repoimpl
   injector.registerSingleton<AnimalMarkersRepository>(AnimalMarkersRepositoryImpl(injector()));
   injector.registerSingleton<PostRepository>(PostRepositoryImpl(injector()));
-  injector.registerSingleton<ImageStorageRepository>(ImageStorageRepositoryImpl());
+  injector.registerSingleton<StorageRepository>(StorageRepositoryImpl(injector()));
   //usecases
   injector.registerSingleton<GetAnimalMarkersUseCase>(GetAnimalMarkersUseCase(injector()));
   injector.registerSingleton<CreatePostUseCase>(

@@ -4,7 +4,7 @@ import 'package:geolocator/geolocator.dart';
 import 'package:mapata/src/data/model/AnimalMarker.dart';
 import 'package:mapata/src/data/util/MarkerUtil.dart';
 import 'package:mapata/src/domain/repository/AnimalMarkersRepository.dart';
-import 'package:mapata/src/domain/repository/ImageStorageRepository.dart';
+import 'package:mapata/src/domain/repository/StorageRepository.dart';
 import 'package:mapata/src/domain/repository/PostRepository.dart';
 
 import '../../../data/datasource/services/GeolocationService.dart';
@@ -13,7 +13,7 @@ import '../../../data/util/NetResult.dart';
 
 class CreatePostUseCase {
   final PostRepository _postRepository;
-  final ImageStorageRepository _imageStorageRepository;
+  final StorageRepository _imageStorageRepository;
   final AnimalMarkersRepository _animalMarkersRepository;
   final GeolocationService _geolocationService;
 
@@ -30,7 +30,7 @@ class CreatePostUseCase {
       String postOwnerId,
       String? transitanteId,
       MarkerType markerType) async {
-    var imageResult = await _imageStorageRepository.uploadPostImage(postImage);
+    var imageResult = await _imageStorageRepository.uploadPostImage(postImage.path);
     if (imageResult.isSuccess) {
       //si la imagen se subio bien continuamos con la creacion del post
       DateTime date = DateTime.now();
