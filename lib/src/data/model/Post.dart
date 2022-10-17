@@ -3,6 +3,18 @@ import 'package:json_annotation/json_annotation.dart';
 
 part 'Post.g.dart';
 
+enum AnimalGender {
+  MALE, FEMALE, UNKNOWN
+}
+
+enum AnimalAge {
+  YOUNG, OLD, UNKNOWN
+}
+
+enum PostStatus {
+  LOST, TRANSITANDO
+}
+
 @JsonSerializable(explicitToJson: true)
 class Post extends Equatable {
   String id;
@@ -10,11 +22,11 @@ class Post extends Equatable {
   final String imageUrl;
   final String title;
   final String description;
-  final int age;
+  final String age;
   final String gender;
   final String postOwnerId;
-  final String transitanteId;
-  final String adopterId;
+  final String? transitanteId;
+  final String? adopterId;
 
   Post(
       {this.id = "",

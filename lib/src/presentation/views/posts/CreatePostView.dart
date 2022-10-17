@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:mapata/src/data/util/ViewStates.dart';
 import 'package:mapata/src/presentation/blocs/createPost/CreatePostBloc.dart';
 import 'package:mapata/src/presentation/blocs/createPost/CreatePostEvent.dart';
-import 'package:mapata/src/presentation/blocs/createPost/CreatePostState.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class CreatePostView extends StatelessWidget {
@@ -19,14 +19,14 @@ class CreatePostView extends StatelessWidget {
     //esto es para cargar el archivo que tiene los strings ↓ (dentro de data/utils/app_es)
     //luego actualizar el file acuerdense de correr "flutter gen-l10n"
     final locale = AppLocalizations.of(context)!;
-    return BlocBuilder<CreatePostBloc, CreatePostState>(builder: (_, state) {
-      if(state is CreatePostLoading) {
+    return BlocBuilder<CreatePostBloc, ViewStates>(builder: (_, state) {
+      if(state is StateLoading) {
         _.read<CreatePostBloc>().add(RenderCreatePost());
         return Center(
           child: CircularProgressIndicator(),
         );
       }
-      if(state is CreatePostDone) {
+      if(state is StateRenderView) {
         return Container(
           color: Colors.white,
           child: Center(

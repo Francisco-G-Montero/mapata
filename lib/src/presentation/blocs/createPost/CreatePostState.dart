@@ -1,26 +1,10 @@
-import 'dart:async';
+import '../../../data/util/ViewStates.dart';
 
-import 'package:equatable/equatable.dart';
-
-class CreatePostState extends Equatable {
+class CreatePostState extends ViewStates {
   const CreatePostState();
-
-  @override
-  List<Object?> get props => [];
+  static ViewStates statePostCreated() => StatePostCreated();
 }
 
-class CreatePostLoading extends CreatePostState {
-  const CreatePostLoading();
-}
-
-class CreatePostError extends CreatePostState {
-  const CreatePostError();
-}
-
-class CreatePostDone extends CreatePostState {
-
-  CreatePostDone();
-
-  @override
-  List<Object?> get props => [];
+class StatePostCreated extends ViewStates {
+  StatePostCreated();
 }

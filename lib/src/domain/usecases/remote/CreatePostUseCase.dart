@@ -1,4 +1,4 @@
-import 'dart:html';
+import 'dart:io';
 
 import 'package:geolocator/geolocator.dart';
 import 'package:mapata/src/data/model/AnimalMarker.dart';
@@ -22,16 +22,14 @@ class CreatePostUseCase {
 
   //postOwnerId lo agregamos cuando incorporemos login
   Future<DataResult<void>> call(
-      ImageBitmap postImage,
+      File postImage,
       String title,
       String description,
-      int age,
+      String age,
       String gender,
       String postOwnerId,
-      String transitanteId,
-      String adopterId,
-      String postType,
-      MarkerType postState) async {
+      String? transitanteId,
+      MarkerType markerType) async {
     var imageResult = await _imageStorageRepository.uploadPostImage(postImage);
     if (imageResult.isSuccess) {
       //si la imagen se subio bien continuamos con la creacion del post
@@ -45,7 +43,7 @@ class CreatePostUseCase {
           gender: gender,
           postOwnerId: postOwnerId,
           transitanteId: transitanteId,
-          adopterId: adopterId);
+          adopterId: null);
       //si se creo un post, subir post y crear marcador
       var postResult = await _postRepository.createPost(post);
       if (postResult.isSuccess) {
@@ -55,7 +53,7 @@ class CreatePostUseCase {
             lng: currentLocation.longitude,
             title: title,
             description: description,
-            imageUrl: MarkerUtil.getMarkerImageByType(postState),
+            imageUrl: MarkerUtil.getMarkerImageByType(markerType),
             postId: postResult.data!);
         var animalMarkerResult = await _animalMarkersRepository.createAnimalMarker(animalMarker);
         if (animalMarkerResult.isSuccess) {

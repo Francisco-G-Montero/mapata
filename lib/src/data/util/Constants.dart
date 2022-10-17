@@ -12,3 +12,6 @@ const String kRouteViewPost = '/viewPost';
 //TABLE NAMES
 //COMMON
 const String kGenericError = 'GENERIC_ERROR';
+//Posts
+const String kGenderFemale = 'GENERIC_ERROR';
+

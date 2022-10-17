@@ -33,7 +33,7 @@ class PostView extends StatelessWidget {
         return Container(
           color: Colors.white,
           child: Center(
-            child: Text("Esta es la vista de Ver Post!\n Este post ID es: $postId"),
+            child: Text("Esta es la vista de Ver Post!\n Este post ID es: ${post.title}"),
           ),
         );
       }

@@ -1,4 +1,4 @@
-import 'dart:html';
+import 'dart:io';
 
 import 'package:mapata/src/data/util/NetResult.dart';
 import 'package:mapata/src/domain/repository/ImageStorageRepository.dart';
@@ -8,7 +8,7 @@ class ImageStorageRepositoryImpl implements ImageStorageRepository {
   ImageStorageRepositoryImpl();
 
   @override
-  Future<DataResult<String>> uploadPostImage(ImageBitmap postImage) {
+  Future<DataResult<String>> uploadPostImage(File postImage) {
     return Future(() => DataResult.success("TODOOOOO"));
   }
 }
