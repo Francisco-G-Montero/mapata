@@ -5,8 +5,12 @@ import 'package:mapata/src/presentation/blocs/createPost/CreatePostBloc.dart';
 import 'package:mapata/src/presentation/blocs/createPost/CreatePostEvent.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
+import '../../../data/model/Post.dart';
+
 class CreatePostView extends StatelessWidget {
-  const CreatePostView({Key? key}) : super(key: key);
+  final Post? post;
+
+  const CreatePostView(this.post);
 
   @override
   Widget build(BuildContext context) {

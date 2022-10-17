@@ -23,12 +23,7 @@ class CreatePostUseCase {
   //postOwnerId lo agregamos cuando incorporemos login
   Future<DataResult<void>> call(
       File postImage,
-      String title,
-      String description,
-      String age,
-      String gender,
-      String postOwnerId,
-      String? transitanteId,
+      Post newPost,
       MarkerType markerType) async {
     var imageResult = await _imageStorageRepository.uploadPostImage(postImage.path);
     if (imageResult.isSuccess) {
@@ -37,12 +32,12 @@ class CreatePostUseCase {
       Post post = Post(
           date: date,
           imageUrl: imageResult.data!,
-          title: title,
-          description: description,
-          age: age,
-          gender: gender,
-          postOwnerId: postOwnerId,
-          transitanteId: transitanteId,
+          title: newPost.title,
+          description: newPost.description,
+          age: newPost.age,
+          gender: newPost.gender,
+          postOwnerId: newPost.postOwnerId,
+          transitanteId: newPost.transitanteId,
           adopterId: null);
       //si se creo un post, subir post y crear marcador
       var postResult = await _postRepository.createPost(post);
@@ -51,8 +46,8 @@ class CreatePostUseCase {
         AnimalMarker animalMarker = AnimalMarker(
             lat: currentLocation.latitude,
             lng: currentLocation.longitude,
-            title: title,
-            description: description,
+            title: newPost.title,
+            description: newPost.description,
             imageUrl: MarkerUtil.getMarkerImageByType(markerType),
             postId: postResult.data!);
         var animalMarkerResult = await _animalMarkersRepository.createAnimalMarker(animalMarker);

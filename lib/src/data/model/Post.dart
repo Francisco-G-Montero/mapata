@@ -24,8 +24,8 @@ class Post extends Equatable {
   final String description;
   final String age;
   final String gender;
-  final String postOwnerId;
-  final String? transitanteId;
+  String postOwnerId;
+  String? transitanteId;
   final String? adopterId;
 
   Post(
@@ -46,4 +46,19 @@ class Post extends Equatable {
   factory Post.fromJson(Map<String, Object?> json) => _$PostFromJson(json);
 
   Map<String, Object?> toJson() => _$PostToJson(this);
+
+  static Post getBlankPost() {
+    return Post(
+      id: "",
+      date: DateTime.now(),
+      imageUrl: "",
+      title: "",
+      description: "",
+      age: "",
+      gender: "",
+      postOwnerId: "",
+      transitanteId: "",
+      adopterId: "",
+    );
+  }
 }

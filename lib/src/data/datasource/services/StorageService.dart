@@ -10,6 +10,10 @@ class StorageService {
     return storage.ref('imagePostsRef/${generateTokenKey()}');
   }
 
+  Reference getImagePostById(String path) {
+    return storage.ref('imagePostsRef/$path');
+  }
+
   String generateTokenKey() {
     return DateTime.now().toString();
   }

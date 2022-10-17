@@ -23,4 +23,13 @@ class PostStorage {
       return DataResult.failure(GenericFailure());
     }
   }
+
+  Future<DataResult<void>> deletePostImage(String path) async {
+    try {
+      await _storageService.getImagePostReference().delete();
+      return DataResult.success(null);
+    } on FirebaseException catch (e) {
+      return DataResult.failure(GenericFailure());
+    }
+  }
 }

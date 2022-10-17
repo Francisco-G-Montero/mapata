@@ -15,4 +15,9 @@ class StorageRepositoryImpl implements StorageRepository {
     final File imageFile = File(file);
     return _postStorage.uploadPostImageById(imageFile);
   }
+
+  @override
+  Future<DataResult<void>> deletePostImage(String imagePath) {
+    return _postStorage.deletePostImage(imagePath);
+  }
 }

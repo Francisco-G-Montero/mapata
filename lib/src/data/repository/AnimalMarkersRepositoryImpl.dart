@@ -29,7 +29,16 @@ class AnimalMarkersRepositoryImpl implements AnimalMarkersRepository {
 
   @override
   Future<DataResult<void>> createAnimalMarker(AnimalMarker animalMarker) {
-    // TODO: implement createAnimalMarker
-    throw UnimplementedError();
+    return _markersDatabase.createMarker(animalMarker);
+  }
+
+  @override
+  Future<DataResult<void>> deleteAnimalMarker(String markerId) {
+    return _markersDatabase.deleteMarkerById(markerId);
+  }
+
+  @override
+  Future<DataResult<void>> updateAnimalMarker(AnimalMarker animalMarker) {
+    return _markersDatabase.updateMarker(animalMarker);
   }
 }

@@ -17,4 +17,9 @@ class PostRepositoryImpl implements PostRepository {
   Future<DataResult<Post>> getPostById(String postId) {
     return _postsDatabase.getPostById(postId);
   }
+
+  @override
+  Future<DataResult<void>> updatePost(Post post) {
+    return _postsDatabase.updatePost(post);
+  }
 }
