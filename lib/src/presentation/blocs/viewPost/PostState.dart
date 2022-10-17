@@ -1,28 +1,16 @@
-import 'dart:async';
-
-import 'package:equatable/equatable.dart';
-
 import '../../../data/model/Post.dart';
+import '../../../data/util/ViewStates.dart';
 
-class PostState extends Equatable {
+class PostState extends ViewStates {
   const PostState();
 
-  @override
-  List<Object?> get props => [];
+  static ViewStates statePostDataRetrieved(Post post) => StatePostDataRetrieved(post);
 }
 
-class PostLoading extends PostState {
-  const PostLoading();
-}
+class StatePostDataRetrieved extends ViewStates {
+  final Post post;
 
-class PostError extends PostState {
-  const PostError();
-}
-
-class PostDone extends PostState {
-  Post post;
-
-  PostDone({required this.post});
+  const StatePostDataRetrieved(this.post);
 
   @override
   List<Object?> get props => [post];

@@ -2,12 +2,13 @@ import 'dart:async';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../data/model/Post.dart';
+import '../../../data/util/ViewStates.dart';
 import 'PostEvent.dart';
 import 'PostState.dart';
 
-class PostBloc extends Bloc<PostEvent, PostState> {
+class PostBloc extends Bloc<PostEvent, ViewStates> {
 
-  PostBloc() : super(const PostLoading()) {
+  PostBloc() : super(ViewStates.stateLoading()) {
     on<RenderPost>(_renderPost);
   }
 
@@ -22,7 +23,7 @@ class PostBloc extends Bloc<PostEvent, PostState> {
         postOwnerId: "postOwnerId",
         transitanteId: "transitanteId",
         adopterId: "adopterId");
-    final newState = PostDone(post: post);
+    final newState = StatePostDataRetrieved(post);
     emit(newState);
   }
 }
