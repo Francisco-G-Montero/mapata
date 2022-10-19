@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:mapata/src/data/util/ViewStates.dart';
 
+import '../../../data/model/Post.dart';
 import '../../blocs/viewPost/PostBloc.dart';
 import '../../blocs/viewPost/PostEvent.dart';
 import '../../blocs/viewPost/PostState.dart';
@@ -20,18 +22,19 @@ class PostView extends StatelessWidget {
 
   Widget _buildBody(BuildContext context) {
     final locale = AppLocalizations.of(context)!;
-    return BlocBuilder<PostBloc, PostState>(builder: (_, state) {
-      if(state is PostLoading) {
+    return BlocBuilder<PostBloc, ViewStates>(builder: (_, state) {
+      if(state is StateLoading) {
         _.read<PostBloc>().add(RenderPost());
         return Center(
           child: CircularProgressIndicator(),
         );
       }
-      if(state is PostDone) {
+      if(state is StatePostDataRetrieved) {
+        Post post = state.post;
         return Container(
           color: Colors.white,
           child: Center(
-            child: Text("Esta es la vista de Ver Post!\n Este post ID es: $postId"),
+            child: Text("Esta es la vista de Ver Post!\n Este post ID es: ${post.title}"),
           ),
         );
       }

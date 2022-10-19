@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:mapata/src/domain/repository/AnimalMarkersRepository.dart';
 
 import '../../../data/model/AnimalMarker.dart';
@@ -8,8 +10,12 @@ class GetAnimalMarkersUseCase {
 
   GetAnimalMarkersUseCase(this._animalMarkersRepository);
 
-  Future<DataResult<List<AnimalMarker>>> call() async {
+  Future<DataResult<List<AnimalMarker>>> getAnimalMarkers() async {
     var champions = await _animalMarkersRepository.getAnimalMarkers();
     return champions;
+  }
+
+  StreamController getRealtimeAnimalMarkers() {
+    return _animalMarkersRepository.getRealtimeAnimalMarkers();
   }
 }
