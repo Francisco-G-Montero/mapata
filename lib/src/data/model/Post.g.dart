@@ -7,7 +7,6 @@ part of 'Post.dart';
 // **************************************************************************
 
 Post _$PostFromJson(Map<String, dynamic> json) => Post(
-      id: json['id'] as String? ?? "",
       date: DateTime.parse(json['date'] as String),
       imageUrl: json['imageUrl'] as String,
       title: json['title'] as String,
@@ -20,7 +19,6 @@ Post _$PostFromJson(Map<String, dynamic> json) => Post(
     );
 
 Map<String, dynamic> _$PostToJson(Post instance) => <String, dynamic>{
-      'id': instance.id,
       'date': instance.date.toIso8601String(),
       'imageUrl': instance.imageUrl,
       'title': instance.title,
