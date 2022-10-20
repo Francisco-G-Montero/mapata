@@ -14,9 +14,10 @@ import '../../widgets/AppBarWidget.dart';
 import 'image_controller.dart'; // for File
 
 class CreatePostView extends StatelessWidget {
-  final Post? post;
+  Post? post;
+  bool isEditMode = false;
 
-  const CreatePostView(this.post, {Key? key}) : super(key: key);
+  CreatePostView(this.post, {Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -55,6 +56,10 @@ class CreatePostView extends StatelessWidget {
           );
         }
         if (state is StateRenderView) {
+          if(post == null) {
+            post = Post.getBlankPost();
+            isEditMode = true;
+          }
           return Scaffold(
               appBar: AppBarWidget("Reportar mascosta", 55),
               body: GetBuilder<ImageController>(builder: (imageController) {
