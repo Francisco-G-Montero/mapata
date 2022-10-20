@@ -12,11 +12,11 @@ Post _$PostFromJson(Map<String, dynamic> json) => Post(
       imageUrl: json['imageUrl'] as String,
       title: json['title'] as String,
       description: json['description'] as String,
-      age: json['age'] as int,
+      age: json['age'] as String,
       gender: json['gender'] as String,
       postOwnerId: json['postOwnerId'] as String,
-      transitanteId: json['transitanteId'] as String,
-      adopterId: json['adopterId'] as String,
+      transitanteId: json['transitanteId'] as String?,
+      adopterId: json['adopterId'] as String?,
     );
 
 Map<String, dynamic> _$PostToJson(Post instance) => <String, dynamic>{

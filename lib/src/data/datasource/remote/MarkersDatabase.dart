@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:firebase_database/firebase_database.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:mapata/src/data/datasource/services/RealtimeDatabaseService.dart';
 
 import '../../model/AnimalMarker.dart';
@@ -51,12 +52,44 @@ class MarkersDatabase {
     return animalMarkerList;
   }
 
-  Future<DataResult<String>> createPost(AnimalMarker animalMarker) async {
+  Future<DataResult<String>> createMarker(AnimalMarker animalMarker) async {
     DatabaseReference newMarkerRef = await databaseService.getMarkersReference().push();
     try {
       await databaseService.getMarkerReference(newMarkerRef.key!).set(animalMarker);
       return DataResult.success(newMarkerRef.key!);
     } catch (error) {
+      return DataResult.failure(GenericFailure());
+    }
+  }
+
+  Future<DataResult<AnimalMarker>> getMarkerById(String markerId) async {
+    AnimalMarker? marker;
+    await databaseService.getMarkerReference(markerId).get().then((snapshot) {
+      if (snapshot.exists) {
+        if (snapshot.value != null) {
+          final dataValue = new Map<String, dynamic>.from(snapshot.value as Map);
+          marker = AnimalMarker.fromJson(dataValue);
+          marker!.id = snapshot.key!;
+        }
+      }
+    });
+    return marker != null ? DataResult.success(marker!) : DataResult.failure(GenericFailure());
+  }
+
+  Future<DataResult<void>> deleteMarkerById(String markerId) async {
+    try {
+      await databaseService.getMarkerReference(markerId).remove();
+      return DataResult.success(null);
+    } catch (e) {
+      return DataResult.failure(GenericFailure());
+    }
+  }
+
+  Future<DataResult<void>> updateMarker(AnimalMarker marker) async {
+    try {
+      await databaseService.getMarkerReference(marker.id).update(marker.toJson());
+      return DataResult.success(null);
+    } catch (e) {
       return DataResult.failure(GenericFailure());
     }
   }

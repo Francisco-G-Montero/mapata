@@ -33,7 +33,12 @@ class PostsDatabase {
     }
   }
 
-  Future<void> updatePost(Post post) async {
-    await databaseService.getPostReference(post.id).update(post.toJson());
+  Future<DataResult<void>> updatePost(Post post) async {
+    try {
+      await databaseService.getPostReference(post.id).update(post.toJson());
+      return DataResult.success(null);
+    } catch (error) {
+      return DataResult.failure(GenericFailure());
+    }
   }
 }
