@@ -166,18 +166,11 @@ class CreatePostView extends StatelessWidget {
                           padding: EdgeInsets.all(8),
                           margin: EdgeInsets.all(8),
                           child: Center(child: CustomButton(() {
-                            Post post = Post(
-                              id: "",
-                              title: titleTextController.text,
-                              date: DateTime.now(),
-                              imageUrl: "",
-                              description: descriptionTextController.text,
-                              age: _ageValue,
-                              gender: _gender,
-                              postOwnerId: "",
-                              transitanteId: "",
-                              adopterId: ""
-                            );
+                            Post post = Post.getBlankPost();
+                            post.title = titleTextController.text;
+                            post.description = descriptionTextController.text;
+                            post.age = _ageValue;
+                            post.gender = _gender;
                             _.read<CreatePostBloc>().add(
                                 StartCreatePost(
                                     File(imageController.pickedFile!.path),
