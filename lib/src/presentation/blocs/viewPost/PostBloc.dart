@@ -15,7 +15,7 @@ class PostBloc extends Bloc<PostEvent, PostState> {
     Post post = Post(
         date: DateTime.now(),
         imageUrl: "https://external-preview.redd.it/H_HYJyRcbV4YT1UZee3P4w0lfKeBmDEhLH2HWEWWY0Y.png?format=pjpg&auto=webp&s=9f64a2788bd32dfa8bcb9df259412bf2a085978d",
-        title: "title",
+        title: "Preston Smith",
         description: "description",
         age: 35,
         gender: "gender",
