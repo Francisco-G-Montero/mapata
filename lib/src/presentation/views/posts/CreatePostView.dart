@@ -30,6 +30,7 @@ class CreatePostView extends StatelessWidget {
   Widget _buildBody(BuildContext context) {
     final titleTextController = TextEditingController();
     final descriptionTextController = TextEditingController();
+
     var _currencies = ["Femenino", "Maculino", "Desconocido"];
     var _gender = "Femenino";
 
