@@ -127,36 +127,32 @@ class PostView extends StatelessWidget {
 
                         //Text in Button
                         TextButton(
-                            onPressed: ()=>{},
-                            child: ElevatedButton.icon(
-                              onPressed: () {},
-                              icon: Icon( // <-- Icon
-                                Icons.add_location,
-                                size: 24.0,
-                              ),
-                              label: Text('Ver en google maps'), // <-- Text
-                            ),
+                          child: Text("Editar"),
+                          style: TextButton.styleFrom(
+                            primary: Colors.white,  //Text Color
+                            backgroundColor: Colors.teal, //Button Background Color
+                          ),
+                          onPressed: () {},
+                        ),
+                         Padding(
+                          padding: EdgeInsets.all(1),
+                         ),
+                        TextButton(
+                          child: Text("Eliminar"),
+                          style: TextButton.styleFrom(
+                            primary: Colors.white,  //Text Color
+                            backgroundColor: Colors.redAccent, //Button Background Color
+                          ),
+                          onPressed: () {},
                         ),
 
                       ],
-                    )
+                    ),
                   ],
                 ),
               ),
             ),
-            Row(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                TextButton(
-                  child: Text(" Lo encontré "),
-                  style: TextButton.styleFrom(
-                    primary: Colors.white,  //Text Color
-                    backgroundColor: Colors.redAccent, //Button Background Color
-                  ),
-                  onPressed: () {},
-                ),
-              ],
-            )
+
           ],
         );
       }
