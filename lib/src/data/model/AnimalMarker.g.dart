@@ -7,7 +7,6 @@ part of 'AnimalMarker.dart';
 // **************************************************************************
 
 AnimalMarker _$AnimalMarkerFromJson(Map<String, dynamic> json) => AnimalMarker(
-      id: json['id'] as String? ?? "",
       lat: (json['lat'] as num).toDouble(),
       lng: (json['lng'] as num).toDouble(),
       title: json['title'] as String,
@@ -18,7 +17,6 @@ AnimalMarker _$AnimalMarkerFromJson(Map<String, dynamic> json) => AnimalMarker(
 
 Map<String, dynamic> _$AnimalMarkerToJson(AnimalMarker instance) =>
     <String, dynamic>{
-      'id': instance.id,
       'lat': instance.lat,
       'lng': instance.lng,
       'title': instance.title,

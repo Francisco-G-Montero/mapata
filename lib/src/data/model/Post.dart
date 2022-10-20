@@ -18,15 +18,15 @@ enum PostStatus {
 @JsonSerializable(explicitToJson: true)
 class Post extends Equatable {
   String id;
-  final DateTime date;
-  final String imageUrl;
-  final String title;
-  final String description;
-  final String age;
-  final String gender;
+  DateTime date;
+  String imageUrl;
+  String title;
+  String description;
+  String age;
+  String gender;
   String postOwnerId;
   String? transitanteId;
-  final String? adopterId;
+  String? adopterId;
 
   Post(
       {this.id = "",

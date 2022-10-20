@@ -15,7 +15,8 @@ class PostStorage {
     try {
       final uploadResult = await _storageService.getImagePostReference().putFile(file);
       if (uploadResult.state == TaskState.success) {
-        return DataResult.success(uploadResult.ref.fullPath);
+        final imageUrl = await uploadResult.ref.getDownloadURL();
+        return DataResult.success(imageUrl);
       } else {
         return DataResult.failure(GenericFailure());
       }

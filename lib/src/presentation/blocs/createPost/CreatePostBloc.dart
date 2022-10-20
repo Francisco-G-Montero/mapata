@@ -36,7 +36,7 @@ class CreatePostBloc extends Bloc<CreatePostEvent, ViewStates> {
       createEvent.newPost.transitanteId = createEvent.newPost.postOwnerId;
     }
     final dataResult =
-        await createPostUseCase(createEvent.imageBitmap, createEvent.newPost, markerType);
+        await createPostUseCase(createEvent.imageFilePath, createEvent.newPost, markerType);
     dataResult.fold((error) => null, (data) => {emit(CreatePostState.statePostCreated())});
     //TODO emit() nuevo estado
   }

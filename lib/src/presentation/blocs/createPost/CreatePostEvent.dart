@@ -18,11 +18,11 @@ class RenderCreatePost extends CreatePostEvent{
 }
 
 class StartCreatePost extends CreatePostEvent{
-  final File imageBitmap;
+  final File imageFilePath;
   final Post newPost;
   final PostStatus postStatus;
 
-  const StartCreatePost(this.imageBitmap, this.newPost, this.postStatus);
+  const StartCreatePost(this.imageFilePath, this.newPost, this.postStatus);
 }
 
 class EditPostEvent extends CreatePostEvent{
