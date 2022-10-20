@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:mapata/src/data/util/Constants.dart';
 import 'package:mapata/src/presentation/widgets/AppBarWidget.dart';
 import 'package:mapata/src/data/util/ViewStates.dart';
 import '../../../data/model/Post.dart';
@@ -18,14 +19,13 @@ class PostView extends StatelessWidget {
     return Scaffold(
       body: _buildBody(context),
       appBar: AppBarWidget("Preston Smith", 55),
-
     );
   }
 
   Widget _buildBody(BuildContext context) {
     final locale = AppLocalizations.of(context)!;
     return BlocBuilder<PostBloc, ViewStates>(builder: (_, state) {
-      if(state is StateLoading) {
+      if (state is StateLoading) {
         _.read<PostBloc>().add(RenderPost());
         return Center(
           child: CircularProgressIndicator(),
@@ -79,32 +79,46 @@ class PostView extends StatelessWidget {
                     Row(
                       children: const <Widget>[
                         Padding(
-                          padding: EdgeInsets.all(10), //apply padding to all four sides
-                          child: Text("Edad:",style: TextStyle(fontWeight: FontWeight.bold),),
+                          padding: EdgeInsets.all(
+                              10), //apply padding to all four sides
+                          child: Text(
+                            "Edad:",
+                            style: TextStyle(fontWeight: FontWeight.bold),
+                          ),
                         ),
-
                         Padding(
-                          padding: EdgeInsets.all(1), //apply padding to all four sides
+                          padding: EdgeInsets.all(
+                              1), //apply padding to all four sides
                           child: Text("5 años"),
                         ),
                         Padding(
-                          padding: EdgeInsets.all(20), //apply padding to all four sides
-                          child: Text("Sexo:",style: TextStyle(fontWeight: FontWeight.bold),),
+                          padding: EdgeInsets.all(
+                              20), //apply padding to all four sides
+                          child: Text(
+                            "Sexo:",
+                            style: TextStyle(fontWeight: FontWeight.bold),
+                          ),
                         ),
                         Padding(
-                          padding: EdgeInsets.all(1), //apply padding to all four sides
+                          padding: EdgeInsets.all(
+                              1), //apply padding to all four sides
                           child: Text("Macho Titan"),
                         ),
                       ],
                     ),
                     Row(
                       children: const <Widget>[
-                      Padding(
-                        padding: EdgeInsets.all(10), //apply padding to all four sides
-                        child: Text("Descripción: ",style: TextStyle(fontWeight: FontWeight.bold),),
-                      ),
                         Padding(
-                          padding: EdgeInsets.all(1), //apply padding to all four sides
+                          padding: EdgeInsets.all(
+                              10), //apply padding to all four sides
+                          child: Text(
+                            "Descripción: ",
+                            style: TextStyle(fontWeight: FontWeight.bold),
+                          ),
+                        ),
+                        Padding(
+                          padding: EdgeInsets.all(
+                              1), //apply padding to all four sides
                           child: Text("Corre como locoooo"),
                         ),
                       ],
@@ -112,11 +126,16 @@ class PostView extends StatelessWidget {
                     Row(
                       children: const <Widget>[
                         Padding(
-                          padding: EdgeInsets.all(10), //apply padding to all four sides
-                          child: Text("Fecha: ",style: TextStyle(fontWeight: FontWeight.bold),),
+                          padding: EdgeInsets.all(
+                              10), //apply padding to all four sides
+                          child: Text(
+                            "Fecha: ",
+                            style: TextStyle(fontWeight: FontWeight.bold),
+                          ),
                         ),
                         Padding(
-                          padding: EdgeInsets.all(1), //apply padding to all four sides
+                          padding: EdgeInsets.all(
+                              1), //apply padding to all four sides
                           child: Text("09/12/2018"),
                         ),
                       ],
@@ -124,35 +143,37 @@ class PostView extends StatelessWidget {
                     Row(
                       mainAxisSize: MainAxisSize.min,
                       children: [
-
                         //Text in Button
                         TextButton(
                           child: Text("Editar"),
                           style: TextButton.styleFrom(
-                            primary: Colors.white,  //Text Color
-                            backgroundColor: Colors.teal, //Button Background Color
+                            foregroundColor: Colors.white, //Text Color
+                            backgroundColor:
+                                Colors.teal, //Button Background Color
                           ),
-                          onPressed: () {},
+                          onPressed: () {
+                            Navigator.pushNamed(context, kRouteCreatePost,
+                                arguments:  post);
+                          },
                         ),
-                         Padding(
+                        Padding(
                           padding: EdgeInsets.all(1),
-                         ),
+                        ),
                         TextButton(
                           child: Text("Eliminar"),
                           style: TextButton.styleFrom(
-                            primary: Colors.white,  //Text Color
-                            backgroundColor: Colors.redAccent, //Button Background Color
+                            foregroundColor: Colors.white, //Text Color
+                            backgroundColor:
+                                Colors.redAccent, //Button Background Color
                           ),
                           onPressed: () {},
                         ),
-
                       ],
                     ),
                   ],
                 ),
               ),
             ),
-
           ],
         );
       }
