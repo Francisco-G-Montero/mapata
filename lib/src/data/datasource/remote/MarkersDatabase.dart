@@ -1,7 +1,6 @@
 import 'dart:async';
 
 import 'package:firebase_database/firebase_database.dart';
-import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:mapata/src/data/datasource/services/RealtimeDatabaseService.dart';
 
 import '../../model/AnimalMarker.dart';
@@ -55,7 +54,7 @@ class MarkersDatabase {
   Future<DataResult<String>> createMarker(AnimalMarker animalMarker) async {
     DatabaseReference newMarkerRef = await databaseService.getMarkersReference().push();
     try {
-      await databaseService.getMarkerReference(newMarkerRef.key!).set(animalMarker);
+      await databaseService.getMarkerReference(newMarkerRef.key!).set(animalMarker.toJson());
       return DataResult.success(newMarkerRef.key!);
     } catch (error) {
       return DataResult.failure(GenericFailure());

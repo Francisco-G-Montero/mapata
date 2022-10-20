@@ -26,7 +26,7 @@ class PostsDatabase {
   Future<DataResult<String>> createPost(Post post) async {
     DatabaseReference newPostRef = await databaseService.getPostsReference().push();
     try {
-      await databaseService.getPostReference(newPostRef.key!).set(post);
+      await databaseService.getPostReference(newPostRef.key!).set(post.toJson());
       return DataResult.success(newPostRef.key!);
     } catch (error) {
       return DataResult.failure(GenericFailure());
