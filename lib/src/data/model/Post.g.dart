@@ -7,24 +7,28 @@ part of 'Post.dart';
 // **************************************************************************
 
 Post _$PostFromJson(Map<String, dynamic> json) => Post(
+      id: json['id'] as String? ?? "",
       date: DateTime.parse(json['date'] as String),
       imageUrl: json['imageUrl'] as String,
       title: json['title'] as String,
       description: json['description'] as String,
       age: json['age'] as String,
       gender: json['gender'] as String,
+      postStatus: json['postStatus'] as String,
       postOwnerId: json['postOwnerId'] as String,
       transitanteId: json['transitanteId'] as String?,
       adopterId: json['adopterId'] as String?,
     );
 
 Map<String, dynamic> _$PostToJson(Post instance) => <String, dynamic>{
+      'id': instance.id,
       'date': instance.date.toIso8601String(),
       'imageUrl': instance.imageUrl,
       'title': instance.title,
       'description': instance.description,
       'age': instance.age,
       'gender': instance.gender,
+      'postStatus': instance.postStatus,
       'postOwnerId': instance.postOwnerId,
       'transitanteId': instance.transitanteId,
       'adopterId': instance.adopterId,

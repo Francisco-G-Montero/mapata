@@ -12,7 +12,12 @@ class PostBloc extends Bloc<PostEvent, ViewStates> {
   final GetPostUseCase _getPostUseCase;
 
   PostBloc(this._getPostUseCase) : super(ViewStates.stateLoading()) {
+    on<RestartPost>(_restartPost);
     on<RenderPost>(_renderPost);
+  }
+
+  FutureOr<void> _restartPost(event, emit) async {
+    emit(ViewStates.stateLoading);
   }
 
   FutureOr<void> _renderPost(event, emit) async {

@@ -1,4 +1,5 @@
 import 'package:mapata/src/data/model/AnimalMarker.dart';
+import 'package:mapata/src/data/util/MarkerUtil.dart';
 
 import '../../../data/model/Post.dart';
 import '../../../data/util/NetResult.dart';
@@ -15,6 +16,13 @@ class EditPostUseCase {
   Future<DataResult<void>> call(Post post, AnimalMarker animalMarker) async {
     animalMarker.title = post.title;
     animalMarker.description = post.description;
+    MarkerType markerType;
+    if(post.postStatus == "Perdido") {
+      markerType = MarkerType.LOST;
+    } else {
+      markerType = MarkerType.TRANSITO;
+    }
+    animalMarker.imageUrl = MarkerUtil.getMarkerImageByType(markerType);
     final markerResult = await _animalMarkersRepository.updateAnimalMarker(animalMarker);
     if(markerResult.isSuccess) {
       return _postRepository.updatePost(post);

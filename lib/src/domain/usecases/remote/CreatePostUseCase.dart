@@ -36,6 +36,7 @@ class CreatePostUseCase {
           description: newPost.description,
           age: newPost.age,
           gender: newPost.gender,
+          postStatus: newPost.postStatus,
           postOwnerId: newPost.postOwnerId,
           transitanteId: newPost.transitanteId,
           adopterId: null);

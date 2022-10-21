@@ -19,6 +19,8 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import '../../data/util/MapsStyling.dart';
 
 import '../../data/util/Constants.dart';
+import '../blocs/viewPost/PostBloc.dart';
+import '../blocs/viewPost/PostEvent.dart';
 
 class HomeView extends StatefulWidget {
   const HomeView({Key? key}) : super(key: key);
@@ -58,6 +60,7 @@ class _HomeViewState extends State<HomeView> {
             title: animalMarker.title,
             snippet: animalMarker.description,
             onTap: () {
+              context.read<PostBloc>().add(RenderPost(animalMarker.postId));
               Navigator.pushNamed(context, kRouteViewPost,
                   arguments: PostViewArguments(animalMarker, animalMarker.postId, null));
             },

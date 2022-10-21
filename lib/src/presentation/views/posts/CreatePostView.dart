@@ -45,7 +45,7 @@ class CreatePostView extends StatelessWidget {
     var _ageValue = isEditMode ? _postViewArguments.post!.age : "Joven";
 
     var _stateValues = ["Transito", "Perdido"];
-    var _stateValue = isEditMode ? _postViewArguments.post!.age : "Transito";
+    var _stateValue = isEditMode ? _postViewArguments.post!.postStatus : "Perdido";
 
 
 
@@ -56,7 +56,7 @@ class CreatePostView extends StatelessWidget {
       return true;
     }), listener: (_, state) {
       if (state is StatePostCreated || state is StatePostEdited) {
-        Navigator.pop(context);
+        Navigator.pop(context, true);
         Navigator.pop(context, true);
         _.read<CreatePostBloc>().add(RenderCreatePost());
       }
@@ -233,6 +233,7 @@ class CreatePostView extends StatelessWidget {
                               _postViewArguments.post!.description = descriptionTextController.text;
                               _postViewArguments.post!.age = _ageValue;
                               _postViewArguments.post!.gender = _gender;
+                              _postViewArguments.post!.postStatus = _stateValue;
                                     _.read<CreatePostBloc>().add(EditPostEvent(
                                         _postViewArguments.post!, PostStatus.LOST, _postViewArguments.marker!));
                                   }, Icons.edit, "Editar")
@@ -242,6 +243,7 @@ class CreatePostView extends StatelessWidget {
                                     post.description = descriptionTextController.text;
                                     post.age = _ageValue;
                                     post.gender = _gender;
+                                    post.postStatus = _stateValue;
                                     _.read<CreatePostBloc>().add(StartCreatePost(
                                         File(imageController.pickedFile!.path),
                                         post,

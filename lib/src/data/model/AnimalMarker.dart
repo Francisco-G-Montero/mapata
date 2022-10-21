@@ -10,7 +10,7 @@ class AnimalMarker extends Equatable {
   final double lng;
   String title;
   String description;
-  final String imageUrl;
+  String imageUrl;
   final String postId;
 
   AnimalMarker(

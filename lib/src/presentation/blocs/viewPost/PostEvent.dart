@@ -7,6 +7,9 @@ class PostEvent extends Equatable {
   List<Object?> get props => [];
 }
 
+class RestartPost extends PostEvent {
+  const RestartPost();
+}
 class RenderPost extends PostEvent{
   final String postId;
 
