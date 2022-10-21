@@ -178,6 +178,37 @@ class CreatePostView extends StatelessWidget {
                     ),
                     Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 16),
+                      child: InputDecorator(
+                        decoration: InputDecoration(
+                            errorStyle: TextStyle(color: Colors.redAccent, fontSize: 16.0),
+                            hintText: 'Edad',
+                            border: OutlineInputBorder()),
+                        child: DropdownButtonHideUnderline(
+                          child: StatefulBuilder(
+                            builder: (context, setState) => Container(
+                              child: DropdownButton<String>(
+                                value: _ageValue,
+                                isDense: true,
+                                onChanged: (String? newValue) {
+                                  _ageValue = newValue ?? "";
+                                  setState(() {
+                                    _ageValue;
+                                  });
+                                },
+                                items: _ageValues.map((String value) {
+                                  return DropdownMenuItem<String>(
+                                    value: value,
+                                    child: Text(value),
+                                  );
+                                }).toList(),
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 16),
                       child: TextFormField(
                         controller: descriptionTextController,
                         maxLines: 8,
