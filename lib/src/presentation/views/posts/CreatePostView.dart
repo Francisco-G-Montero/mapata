@@ -52,6 +52,7 @@ class CreatePostView extends StatelessWidget {
     }), listener: (_, state) {
       if (state is StatePostCreated || state is StatePostEdited) {
         Navigator.pop(context);
+        Navigator.pop(context);
       }
     }, child: BlocBuilder<CreatePostBloc, ViewStates>(builder: (_, state) {
       if (state is StateLoading) {
