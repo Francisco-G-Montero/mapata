@@ -139,7 +139,7 @@ class _PostViewState extends State<PostView> {
                         ),
                         Padding(
                           padding: EdgeInsets.fromLTRB(1, 20, 3.0, 4.0), //apply padding to all four sides
-                          child: Text(DateFormat('dd/MM/yyyy KK:mm:ss').format(post.date.toLocal()),
+                          child: Text(DateFormat('dd/MM/yyyy KK:mm:ss a').format(post.date.toLocal()),
       ),
                         ),
                       ],
@@ -161,7 +161,7 @@ class _PostViewState extends State<PostView> {
                           },
                         ),
                         Padding(
-                          padding: EdgeInsets.all(1),
+                          padding: EdgeInsets.fromLTRB(10, 60, 3.0, 4.0),
                         ),
                         TextButton(
                           child: Text("Eliminar"),
