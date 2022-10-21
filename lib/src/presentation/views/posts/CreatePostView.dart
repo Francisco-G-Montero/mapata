@@ -44,6 +44,11 @@ class CreatePostView extends StatelessWidget {
     var _ageValues = ["Joven", "Viejo"];
     var _ageValue = isEditMode ? _postViewArguments.post!.age : "Joven";
 
+    var _stateValues = ["Transito", "Perdido"];
+    var _stateValue = isEditMode ? _postViewArguments.post!.age : "Transito";
+
+
+
     //esto es para cargar el archivo que tiene los strings ↓ (dentro de data/utils/app_es)
     //luego actualizar el file acuerdense de correr "flutter gen-l10n"
     final locale = AppLocalizations.of(context)!;
@@ -181,21 +186,21 @@ class CreatePostView extends StatelessWidget {
                       child: InputDecorator(
                         decoration: InputDecoration(
                             errorStyle: TextStyle(color: Colors.redAccent, fontSize: 16.0),
-                            hintText: 'Edad',
+                            hintText: 'Estado',
                             border: OutlineInputBorder()),
                         child: DropdownButtonHideUnderline(
                           child: StatefulBuilder(
                             builder: (context, setState) => Container(
                               child: DropdownButton<String>(
-                                value: _ageValue,
+                                value: _stateValue,
                                 isDense: true,
                                 onChanged: (String? newValue) {
-                                  _ageValue = newValue ?? "";
+                                  _stateValue = newValue ?? "";
                                   setState(() {
-                                    _ageValue;
+                                    _stateValue;
                                   });
                                 },
-                                items: _ageValues.map((String value) {
+                                items: _stateValues.map((String value) {
                                   return DropdownMenuItem<String>(
                                     value: value,
                                     child: Text(value),
