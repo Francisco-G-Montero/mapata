@@ -14,3 +14,7 @@ class InitializeMap extends HomeEvent{
 class LoadMarkers extends HomeEvent{
   const LoadMarkers();
 }
+
+class ReloadMarkers extends HomeEvent{
+  const ReloadMarkers();
+}

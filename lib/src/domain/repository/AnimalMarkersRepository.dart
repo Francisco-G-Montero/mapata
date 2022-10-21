@@ -7,6 +7,6 @@ abstract class AnimalMarkersRepository {
   Future<DataResult<List<AnimalMarker>>> getAnimalMarkers();
   StreamController getRealtimeAnimalMarkers();
   Future<DataResult<void>> createAnimalMarker(AnimalMarker animalMarker);
-  Future<DataResult<void>> deleteAnimalMarker(String markerId);
+  Future<DataResult<void>> deleteMarker(String markerId);
   Future<DataResult<void>> updateAnimalMarker(AnimalMarker animalMarker);
 }

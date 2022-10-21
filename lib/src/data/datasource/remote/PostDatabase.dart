@@ -41,4 +41,13 @@ class PostsDatabase {
       return DataResult.failure(GenericFailure());
     }
   }
+
+  Future<DataResult<void>> deletePost(Post post) async {
+    try {
+      await databaseService.getPostReference(post.id).remove();
+      return DataResult.success(null);
+    } catch (error) {
+      return DataResult.failure(GenericFailure());
+    }
+  }
 }

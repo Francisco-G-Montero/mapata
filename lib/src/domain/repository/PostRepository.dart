@@ -5,4 +5,5 @@ abstract class PostRepository {
   Future<DataResult<Post>> getPostById(String postId);
   Future<DataResult<String>> createPost(Post post);
   Future<DataResult<void>> updatePost(Post post);
+  Future<DataResult<void>> deletePost(Post post);
 }

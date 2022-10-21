@@ -22,4 +22,9 @@ class PostRepositoryImpl implements PostRepository {
   Future<DataResult<void>> updatePost(Post post) {
     return _postsDatabase.updatePost(post);
   }
+
+  @override
+  Future<DataResult<void>> deletePost(Post post) {
+    return _postsDatabase.deletePost(post);
+  }
 }

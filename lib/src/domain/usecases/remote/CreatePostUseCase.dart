@@ -44,6 +44,11 @@ class CreatePostUseCase {
       var postResult = await _postRepository.createPost(post);
       if (postResult.isSuccess) {
         Position currentLocation = await _geolocationService.getCurrentLocation();
+        if(post.postStatus == "Perdido") {
+          markerType = MarkerType.LOST;
+        } else {
+          markerType = MarkerType.TRANSITO;
+        }
         AnimalMarker animalMarker = AnimalMarker(
             lat: currentLocation.latitude,
             lng: currentLocation.longitude,

@@ -1,0 +1,63 @@
+{
+  "project_info": {
+    "project_number": "49357132653",
+    "firebase_url": "https://mapata-1943d-default-rtdb.firebaseio.com",
+    "project_id": "mapata-1943d",
+    "storage_bucket": "mapata-1943d.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:49357132653:android:45a900e0fee64ed1ab8064",
+        "android_client_info": {
+          "package_name": "com.fgmontero.mapata"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "49357132653-e7jj21a8ikbk4p69jpnkeorbe4a960n9.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.fgmontero.mapata",
+            "certificate_hash": "2af80fe2661aedc88ffd40fd95e4dcd670aaed9c"
+          }
+        },
+        {
+          "client_id": "49357132653-n5llc664kgml0ol8he4devfkd7pkslp2.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.fgmontero.mapata",
+            "certificate_hash": "1bb579f86538710c2008bf124f07a090245f0b1e"
+          }
+        },
+        {
+          "client_id": "49357132653-ged3366trr1r3vnhcob692vqr5b651f3.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyACCAujpdzAnazR3Of-gq6C_IBPxLyPm0o"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "49357132653-ged3366trr1r3vnhcob692vqr5b651f3.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "49357132653-qp0t4i3jr7trch5pbe8ldsm5tpkvjq8s.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.fgmontero"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

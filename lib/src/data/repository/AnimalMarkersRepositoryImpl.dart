@@ -33,8 +33,8 @@ class AnimalMarkersRepositoryImpl implements AnimalMarkersRepository {
   }
 
   @override
-  Future<DataResult<void>> deleteAnimalMarker(String markerId) {
-    return _markersDatabase.deleteMarkerById(markerId);
+  Future<DataResult<void>> deleteMarker(String markerId) {
+    return _markersDatabase.deleteMarker(markerId);
   }
 
   @override

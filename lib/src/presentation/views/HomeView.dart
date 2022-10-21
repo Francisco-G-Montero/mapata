@@ -2,11 +2,13 @@ import 'dart:async';
 import 'dart:ui' as ui;
 import 'dart:typed_data';
 
+import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:mapata/src/data/datasource/remote/MarkersDatabase.dart';
 import 'package:mapata/src/data/model/AnimalMarker.dart';
 import 'package:mapata/src/presentation/blocs/home/HomeBloc.dart';
 import 'package:mapata/src/presentation/blocs/home/HomeState.dart';
@@ -19,6 +21,8 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import '../../data/util/MapsStyling.dart';
 
 import '../../data/util/Constants.dart';
+import '../blocs/createPost/CreatePostBloc.dart';
+import '../blocs/createPost/CreatePostEvent.dart';
 import '../blocs/viewPost/PostBloc.dart';
 import '../blocs/viewPost/PostEvent.dart';
 
@@ -40,6 +44,8 @@ class _HomeViewState extends State<HomeView> {
 
   var isVisible = true;
 
+  var markerCounter = 0;
+
   Set<Marker> markers = {};
 
   @override
@@ -49,7 +55,48 @@ class _HomeViewState extends State<HomeView> {
     );
   }
 
-  _getMarkers(List<AnimalMarker> animalMarkerList) {
+  _updateMarker(AnimalMarker animalMarker) async {
+    markers.remove(animalMarker);
+    if (mounted) {
+      setState(() {
+        markers;
+      });
+    }
+    Uint8List markerbitmap = await getBytesFromAsset(animalMarker.imageUrl, 100);
+    markers.add(Marker(
+      //add start location marker
+        markerId: MarkerId(animalMarker.id),
+        position: LatLng(animalMarker.lat, animalMarker.lng),
+        infoWindow: InfoWindow(
+          title: animalMarker.title,
+          snippet: animalMarker.description,
+          onTap: () {
+            context.read<PostBloc>().add(RenderPost(animalMarker.postId));
+            Navigator.pushNamed(context, kRouteViewPost,
+                arguments: PostViewArguments(animalMarker, animalMarker.postId, null));
+          },
+        ),
+        icon: BitmapDescriptor.fromBytes(markerbitmap)));
+    if (mounted) {
+      setState(() {
+        markers;
+      });
+    }
+  }
+
+  _removeMarker(AnimalMarker animalMarker) async {
+    markers;
+    animalMarker.id;
+    markers.removeWhere((element) => element.infoWindow.title == animalMarker.title);
+    if (mounted) {
+      setState(() {
+        markers;
+      });
+    }
+    print("Contadoooor: ${markers.length}");
+  }
+
+  _drawMarkers(List<AnimalMarker> animalMarkerList) async {
     animalMarkerList.forEach((animalMarker) async {
       Uint8List markerbitmap = await getBytesFromAsset(animalMarker.imageUrl, 100);
       markers.add(Marker(
@@ -66,10 +113,12 @@ class _HomeViewState extends State<HomeView> {
             },
           ),
           icon: BitmapDescriptor.fromBytes(markerbitmap)));
-      setState(() {
-        this.markers = markers;
-      });
     });
+    if (mounted) {
+      setState(() {
+        markers;
+      });
+    }
   }
 
   Widget _buildBody() {
@@ -84,11 +133,15 @@ class _HomeViewState extends State<HomeView> {
       }),
       listener: (_, state) {
         if (state is HomeDone) {
-          _getMarkers(state.homeUiModel.animalMarkerList);
-
+          _drawMarkers(state.homeUiModel.animalMarkerList);
           if (state.streamController != null) {
             state.streamController!.stream.listen((event) {
-              _getMarkers(event);
+              final changeEvent = (event as AnimalMarkerChangeEvent);
+              if(changeEvent.event == 1) {
+                _removeMarker(changeEvent.animalMarker);
+              } else {
+                _updateMarker(changeEvent.animalMarker);
+              }
             });
           }
         }
@@ -133,9 +186,11 @@ class _HomeViewState extends State<HomeView> {
             ),
             Container(
               alignment: Alignment.bottomCenter,
-              padding: EdgeInsets.all(8),
+              padding: EdgeInsets.all(12),
               child: CustomButton(() {
-                Navigator.pushNamed(context, kRouteCreatePost, arguments: PostViewArguments(null, null, null));
+                context.read<CreatePostBloc>().add(RenderCreatePost());
+                Navigator.pushNamed(context, kRouteCreatePost,
+                    arguments: PostViewArguments(null, null, null));
               }, Icons.camera_alt, locale.homeview_report_pet),
             ),
             GestureDetector(
@@ -146,7 +201,7 @@ class _HomeViewState extends State<HomeView> {
               },
               child: Container(
                 margin: EdgeInsets.all(8),
-                alignment: Alignment.topRight,
+                alignment: Alignment.topLeft,
                 child: DecoratedBox(
                   decoration: BoxDecoration(
                       borderRadius: BorderRadius.all(Radius.circular(4)), color: Colors.black45),
@@ -241,6 +296,13 @@ class _HomeViewState extends State<HomeView> {
 
     // When we reach here, permissions are granted and we can
     // continue accessing the position of the device.
-    return await Geolocator.getCurrentPosition();
+    final position = await Geolocator.getCurrentPosition();
+    _myLocation = LatLng(position.latitude, position.longitude);
+    if (mounted) {
+      setState(() {
+        _myLocation;
+      });
+    }
+    return position;
   }
 }

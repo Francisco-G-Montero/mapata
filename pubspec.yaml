@@ -43,6 +43,7 @@ dependencies:
   firebase_storage: ^10.3.11
   image_picker: ^0.8.5
   get: any
+  audioplayers: ^0.20.1
 dev_dependencies:
   flutter_test:
     sdk: flutter
@@ -55,3 +56,4 @@ flutter:
   generate: true # local resources (intl localization language)
   assets:
     - assets/markers/
+    - assets/markers/new_marker_sound.wav

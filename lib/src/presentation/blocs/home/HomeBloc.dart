@@ -16,6 +16,7 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
   HomeBloc(this._getAnimalMarkersUseCase) : super(const HomeLoading()) {
     on<InitializeMap>(_initializeMap);
     on<LoadMarkers>(_loadMarkers);
+    on<ReloadMarkers>(_reloadMarkers);
   }
 
   FutureOr<void> _initializeMap(event, emit) async {
@@ -37,13 +38,22 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
   }
 
   FutureOr<void> _loadMarkers(event, emit) async {
-
     final dataResult = await _getAnimalMarkersUseCase.getAnimalMarkers();
     dataResult.either((error) {
-      print("Error generico"); //TODO MEJORAR
       return GenericFailure();
     }, (animalMarkerList) {
       final newState = HomeDone(streamController: _getAnimalMarkersUseCase.getRealtimeAnimalMarkers());
+      newState.homeUiModel = (state as HomeDone).homeUiModel.copyWith(animalMarkerList: animalMarkerList);
+      emit(newState);
+    });
+  }
+
+  FutureOr<void> _reloadMarkers(event, emit) async {
+    final dataResult = await _getAnimalMarkersUseCase.getAnimalMarkers();
+    dataResult.either((error) {
+      return GenericFailure();
+    }, (animalMarkerList) {
+      final newState = HomeDone(streamController: (state as HomeDone).streamController);
       newState.homeUiModel = (state as HomeDone).homeUiModel.copyWith(animalMarkerList: animalMarkerList);
       emit(newState);
     });

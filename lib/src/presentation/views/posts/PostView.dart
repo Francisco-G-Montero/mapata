@@ -5,6 +5,10 @@ import 'package:mapata/src/data/util/Constants.dart';
 import 'package:mapata/src/presentation/widgets/AppBarWidget.dart';
 import 'package:mapata/src/data/util/ViewStates.dart';
 import '../../../data/model/Post.dart';
+import '../../blocs/createPost/CreatePostBloc.dart';
+import '../../blocs/createPost/CreatePostEvent.dart';
+import '../../blocs/home/HomeBloc.dart';
+import '../../blocs/home/HomeEvent.dart';
 import '../../blocs/viewPost/PostBloc.dart';
 import '../../blocs/viewPost/PostEvent.dart';
 import '../../blocs/viewPost/PostState.dart';
@@ -37,6 +41,10 @@ class _PostViewState extends State<PostView> {
       listener: (_, state) {
         if (state is RestartPost) {
           _.read<PostBloc>().add(RenderPost(widget._postViewArguments.postId!));
+        }
+        if (state is StatePostDeleted) {
+          Navigator.pop(context);
+          context.read<HomeBloc>().add(ReloadMarkers());
         }
       },
       child: BlocBuilder<PostBloc, ViewStates>(builder: (_, state) {
@@ -175,6 +183,7 @@ class _PostViewState extends State<PostView> {
                               backgroundColor: Colors.teal, //Button Background Color
                             ),
                             onPressed: () {
+                              context.read<CreatePostBloc>().add(RenderCreatePost());
                               Navigator.pushNamed(context, kRouteCreatePost,
                                   arguments: widget._postViewArguments);
                             },
@@ -188,7 +197,9 @@ class _PostViewState extends State<PostView> {
                               foregroundColor: Colors.white, //Text Color
                               backgroundColor: Colors.redAccent, //Button Background Color
                             ),
-                            onPressed: () {},
+                            onPressed: () {
+                              context.read<PostBloc>().add(DeletePost(widget._postViewArguments.post!, widget._postViewArguments.marker!));
+                            },
                           ),
                         ],
                       ),

@@ -6,9 +6,11 @@ import 'package:mapata/src/presentation/blocs/createPost/CreatePostBloc.dart';
 import 'package:mapata/src/presentation/blocs/createPost/CreatePostEvent.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:mapata/src/presentation/blocs/createPost/CreatePostState.dart';
+import 'package:mapata/src/presentation/blocs/home/HomeEvent.dart';
 import 'package:mapata/src/presentation/widgets/CustomButton.dart';
 import 'dart:io';
 import '../../../data/model/Post.dart';
+import '../../blocs/home/HomeBloc.dart';
 import '../../navigation/PostViewArguments.dart';
 import '../../widgets/AppBarWidget.dart';
 import 'image_controller.dart'; // for File
@@ -55,10 +57,13 @@ class CreatePostView extends StatelessWidget {
     return BlocListener<CreatePostBloc, ViewStates>(listenWhen: ((previous, current) {
       return true;
     }), listener: (_, state) {
-      if (state is StatePostCreated || state is StatePostEdited) {
-        Navigator.pop(context, true);
-        Navigator.pop(context, true);
-        _.read<CreatePostBloc>().add(RenderCreatePost());
+      if (state is StatePostEdited) {
+        Navigator.pop(context);
+        Navigator.pop(context);
+        context.read<HomeBloc>().add(ReloadMarkers());
+      }
+      if (state is StatePostCreated) {
+        Navigator.pop(context);
       }
     }, child: BlocBuilder<CreatePostBloc, ViewStates>(builder: (_, state) {
       if (state is StateLoading) {

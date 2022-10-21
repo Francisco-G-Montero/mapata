@@ -6,36 +6,48 @@ import 'package:mapata/src/data/datasource/services/RealtimeDatabaseService.dart
 import '../../model/AnimalMarker.dart';
 import '../../util/NetResult.dart';
 
+class AnimalMarkerChangeEvent {
+  final AnimalMarker animalMarker;
+  final int event;
+
+  AnimalMarkerChangeEvent(this.animalMarker, this.event);
+}
+
 class MarkersDatabase {
   final RealtimeDatabaseService databaseService;
 
   MarkersDatabase(this.databaseService);
 
+  var counter = 0;
+
   StreamController getRealtimeAnimalMarkers() {
-    final streamController = StreamController<List<AnimalMarker>>();
-    var animalMarkerList = <AnimalMarker>[];
+    final streamController = StreamController<AnimalMarkerChangeEvent>();
     databaseService.getMarkersReference().onChildAdded.listen((event) {
       final data = event.snapshot.value;
       final dataValue = new Map<String, dynamic>.from(data as Map);
       final animalMarker = AnimalMarker.fromJson(dataValue);
-      animalMarker.id = data.keys.first!;
-      animalMarkerList.add(animalMarker);
-      streamController.sink.add(animalMarkerList);
+      animalMarker.id = event.snapshot.key!;
+      streamController.sink.add(AnimalMarkerChangeEvent(animalMarker, 0));
     });
     databaseService.getMarkersReference().onChildChanged.listen((event) {
       final data = event.snapshot.value;
       final dataValue = new Map<String, dynamic>.from(data as Map);
       final animalMarker = AnimalMarker.fromJson(dataValue);
-      animalMarker.id = data.keys.first!;
-      animalMarkerList.removeWhere((element) => element.id == animalMarker.id);
-      animalMarkerList.add(animalMarker);
-      streamController.sink.add(animalMarkerList);
+      animalMarker.id = event.snapshot.key!;
+      streamController.sink.add(AnimalMarkerChangeEvent(animalMarker, 0));
+    });
+    databaseService.getMarkersReference().onChildRemoved.listen((event) {
+      final data = event.snapshot.value;
+      final dataValue = new Map<String, dynamic>.from(data as Map);
+      final animalMarker = AnimalMarker.fromJson(dataValue);
+      animalMarker.id = event.snapshot.key!;
+      streamController.sink.add(AnimalMarkerChangeEvent(animalMarker, 1));
     });
     return streamController;
   }
 
   Future<List<AnimalMarker>> getAnimalMarkers() async {
-    var animalMarkerList = <AnimalMarker>[];
+    final animalMarkerList = <AnimalMarker>[];
     await databaseService.getMarkersReference().get().then((snapshot) {
       if (snapshot.exists) {
         snapshot.children.forEach((element) {
@@ -75,7 +87,7 @@ class MarkersDatabase {
     return marker != null ? DataResult.success(marker!) : DataResult.failure(GenericFailure());
   }
 
-  Future<DataResult<void>> deleteMarkerById(String markerId) async {
+  Future<DataResult<void>> deleteMarker(String markerId) async {
     try {
       await databaseService.getMarkerReference(markerId).remove();
       return DataResult.success(null);

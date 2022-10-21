@@ -15,3 +15,7 @@ class StatePostDataRetrieved extends ViewStates {
   @override
   List<Object?> get props => [post];
 }
+
+class StatePostDeleted extends ViewStates {
+  const StatePostDeleted();
+}
