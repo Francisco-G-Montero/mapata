@@ -8,5 +8,7 @@ class PostEvent extends Equatable {
 }
 
 class RenderPost extends PostEvent{
-  const RenderPost();
+  final String postId;
+
+  const RenderPost(this.postId);
 }

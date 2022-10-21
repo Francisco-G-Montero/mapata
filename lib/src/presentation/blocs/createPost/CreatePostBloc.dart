@@ -45,7 +45,7 @@ class CreatePostBloc extends Bloc<CreatePostEvent, ViewStates> {
     final editEvent = (event as EditPostEvent);
     final editResult = await editPostUseCase(editEvent.editedPost, editEvent.marker);
     editResult.fold((error) => null, (data) => {
-      // TODO emit nuevo estado
+      emit(StatePostEdited())
     });
   }
 }

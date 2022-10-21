@@ -8,17 +8,26 @@ import '../../../data/model/Post.dart';
 import '../../blocs/viewPost/PostBloc.dart';
 import '../../blocs/viewPost/PostEvent.dart';
 import '../../blocs/viewPost/PostState.dart';
+import '../../navigation/PostViewArguments.dart';
 
-class PostView extends StatelessWidget {
-  final String postId;
+class PostView extends StatefulWidget {
+  PostViewArguments _postViewArguments;
 
-  const PostView(this.postId);
+  PostView(this._postViewArguments);
+
+  @override
+  State<PostView> createState() => _PostViewState();
+}
+
+class _PostViewState extends State<PostView> {
+
+  String appBarTitle = "Preston Smith";
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: _buildBody(context),
-      appBar: AppBarWidget("Preston Smith", 55),
+      appBar: AppBarWidget(appBarTitle, 55),
     );
   }
 
@@ -26,13 +35,16 @@ class PostView extends StatelessWidget {
     final locale = AppLocalizations.of(context)!;
     return BlocBuilder<PostBloc, ViewStates>(builder: (_, state) {
       if (state is StateLoading) {
-        _.read<PostBloc>().add(RenderPost());
+        _.read<PostBloc>().add(RenderPost(widget._postViewArguments.postId!));
         return Center(
           child: CircularProgressIndicator(),
         );
       }
       if (state is StatePostDataRetrieved) {
         Post post = state.post;
+        widget._postViewArguments.post = post;
+        appBarTitle = post.title;
+
         return Column(
           mainAxisAlignment: MainAxisAlignment.start,
           mainAxisSize: MainAxisSize.max,
@@ -55,7 +67,7 @@ class PostView extends StatelessWidget {
                       decoration: BoxDecoration(
                         image: DecorationImage(
                           image: NetworkImage(
-                              "https://www.purina-latam.com/sites/g/files/auxxlc391/files/styles/kraken_generic_max_width_960/public/Purina%C2%AE%20Como%20disciplinar%20a%20tu%20gato.jpg?itok=Nxydhxbv"),
+                              post.imageUrl),
                         ),
                       ),
                     )),
@@ -77,7 +89,7 @@ class PostView extends StatelessWidget {
                 child: Column(
                   children: [
                     Row(
-                      children: const <Widget>[
+                      children: <Widget>[
                         Padding(
                           padding: EdgeInsets.all(
                               10), //apply padding to all four sides
@@ -89,7 +101,7 @@ class PostView extends StatelessWidget {
                         Padding(
                           padding: EdgeInsets.all(
                               1), //apply padding to all four sides
-                          child: Text("5 años"),
+                          child: Text(post.age),
                         ),
                         Padding(
                           padding: EdgeInsets.all(
@@ -102,12 +114,12 @@ class PostView extends StatelessWidget {
                         Padding(
                           padding: EdgeInsets.all(
                               1), //apply padding to all four sides
-                          child: Text("Macho Titan"),
+                          child: Text(post.gender),
                         ),
                       ],
                     ),
                     Row(
-                      children: const <Widget>[
+                      children: <Widget>[
                         Padding(
                           padding: EdgeInsets.all(
                               10), //apply padding to all four sides
@@ -119,12 +131,12 @@ class PostView extends StatelessWidget {
                         Padding(
                           padding: EdgeInsets.all(
                               1), //apply padding to all four sides
-                          child: Text("Corre como locoooo"),
+                          child: Text(post.description),
                         ),
                       ],
                     ),
                     Row(
-                      children: const <Widget>[
+                      children: <Widget>[
                         Padding(
                           padding: EdgeInsets.all(
                               10), //apply padding to all four sides
@@ -136,7 +148,7 @@ class PostView extends StatelessWidget {
                         Padding(
                           padding: EdgeInsets.all(
                               1), //apply padding to all four sides
-                          child: Text("09/12/2018"),
+                          child: Text(post.date.toLocal().toString()),
                         ),
                       ],
                     ),
@@ -153,7 +165,7 @@ class PostView extends StatelessWidget {
                           ),
                           onPressed: () {
                             Navigator.pushNamed(context, kRouteCreatePost,
-                                arguments:  post);
+                                arguments: widget._postViewArguments);
                           },
                         ),
                         Padding(

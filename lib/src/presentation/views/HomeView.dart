@@ -11,6 +11,7 @@ import 'package:mapata/src/data/model/AnimalMarker.dart';
 import 'package:mapata/src/presentation/blocs/home/HomeBloc.dart';
 import 'package:mapata/src/presentation/blocs/home/HomeState.dart';
 import 'package:mapata/src/presentation/blocs/home/HomeEvent.dart';
+import 'package:mapata/src/presentation/navigation/PostViewArguments.dart';
 import 'package:mapata/src/presentation/widgets/CustomButton.dart';
 import 'package:mapata/src/presentation/widgets/ItemLegend.dart';
 
@@ -49,19 +50,19 @@ class _HomeViewState extends State<HomeView> {
   _getMarkers(List<AnimalMarker> animalMarkerList) {
     animalMarkerList.forEach((animalMarker) async {
       Uint8List markerbitmap = await getBytesFromAsset(animalMarker.imageUrl, 100);
-      markers.add(
-          Marker(
-            //add start location marker
-              markerId: MarkerId(animalMarker.id),
-              position: LatLng(animalMarker.lat, animalMarker.lng),
-              infoWindow: InfoWindow(
-                title: animalMarker.title,
-                snippet: animalMarker.description,
-                onTap: () {
-                  Navigator.pushNamed(context, kRouteViewPost, arguments: animalMarker.postId);
-                },
-              ),
-              icon: BitmapDescriptor.fromBytes(markerbitmap)));
+      markers.add(Marker(
+          //add start location marker
+          markerId: MarkerId(animalMarker.id),
+          position: LatLng(animalMarker.lat, animalMarker.lng),
+          infoWindow: InfoWindow(
+            title: animalMarker.title,
+            snippet: animalMarker.description,
+            onTap: () {
+              Navigator.pushNamed(context, kRouteViewPost,
+                  arguments: PostViewArguments(animalMarker, animalMarker.postId, null));
+            },
+          ),
+          icon: BitmapDescriptor.fromBytes(markerbitmap)));
       setState(() {
         this.markers = markers;
       });
@@ -131,7 +132,7 @@ class _HomeViewState extends State<HomeView> {
               alignment: Alignment.bottomCenter,
               padding: EdgeInsets.all(8),
               child: CustomButton(() {
-                Navigator.pushNamed(context, kRouteCreatePost);
+                Navigator.pushNamed(context, kRouteCreatePost, arguments: PostViewArguments(null, null, null));
               }, Icons.camera_alt, locale.homeview_report_pet),
             ),
             GestureDetector(
@@ -154,27 +155,27 @@ class _HomeViewState extends State<HomeView> {
                       children: [
                         FittedBox(
                             child: Text(
-                              locale.homeview_legend,
-                              style: TextStyle(
-                                  fontSize: 20, fontWeight: FontWeight.bold, color: Colors.white),
-                            )),
+                          locale.homeview_legend,
+                          style: TextStyle(
+                              fontSize: 20, fontWeight: FontWeight.bold, color: Colors.white),
+                        )),
                         AnimatedSwitcher(
                           duration: Duration(milliseconds: 100),
                           child: isVisible
                               ? Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            key: Key(isVisible.toString()),
-                            children: [
-                              Container(
-                                height: 1,
-                                color: Colors.black12,
-                                width: 100,
-                              ),
-                              ItemLegend(locale.homeview_lost_pet, Colors.redAccent),
-                              ItemLegend(locale.homeview_transito_pet, Colors.yellowAccent),
-                              ItemLegend(locale.homeview_shelters, Colors.greenAccent),
-                            ],
-                          )
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  key: Key(isVisible.toString()),
+                                  children: [
+                                    Container(
+                                      height: 1,
+                                      color: Colors.black12,
+                                      width: 100,
+                                    ),
+                                    ItemLegend(locale.homeview_lost_pet, Colors.redAccent),
+                                    ItemLegend(locale.homeview_transito_pet, Colors.yellowAccent),
+                                    ItemLegend(locale.homeview_shelters, Colors.greenAccent),
+                                  ],
+                                )
                               : Column(),
                         )
                       ],

@@ -8,3 +8,7 @@ class CreatePostState extends ViewStates {
 class StatePostCreated extends ViewStates {
   StatePostCreated();
 }
+
+class StatePostEdited extends ViewStates {
+  StatePostEdited();
+}

@@ -28,7 +28,7 @@ class StartCreatePost extends CreatePostEvent{
 class EditPostEvent extends CreatePostEvent{
   final Post editedPost;
   final AnimalMarker marker;
-  final PostStatus postState;
+  final PostStatus postStatus;
 
-  const EditPostEvent(this.editedPost, this.postState, this.marker);
+  const EditPostEvent(this.editedPost, this.postStatus, this.marker);
 }

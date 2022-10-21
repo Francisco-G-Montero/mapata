@@ -13,6 +13,8 @@ class EditPostUseCase {
       this._postRepository, this._animalMarkersRepository);
 
   Future<DataResult<void>> call(Post post, AnimalMarker animalMarker) async {
+    animalMarker.title = post.title;
+    animalMarker.description = post.description;
     final markerResult = await _animalMarkersRepository.updateAnimalMarker(animalMarker);
     if(markerResult.isSuccess) {
       return _postRepository.updatePost(post);

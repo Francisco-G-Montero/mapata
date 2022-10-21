@@ -8,8 +8,8 @@ class AnimalMarker extends Equatable {
   String id;
   final double lat;
   final double lng;
-  final String title;
-  final String description;
+  String title;
+  String description;
   final String imageUrl;
   final String postId;
 
