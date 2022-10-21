@@ -89,29 +89,26 @@ class _PostViewState extends State<PostView> {
                     Row(
                       children: <Widget>[
                         Padding(
-                          padding: EdgeInsets.all(
-                              10), //apply padding to all four sides
+                          padding:EdgeInsets.fromLTRB(10, 30, 3.0, 4.0),
+                //apply padding to all four sides
                           child: Text(
                             "Edad:",
                             style: TextStyle(fontWeight: FontWeight.bold),
                           ),
                         ),
                         Padding(
-                          padding: EdgeInsets.all(
-                              1), //apply padding to all four sides
+                          padding: EdgeInsets.fromLTRB(1, 30, 3.0, 4.0), //apply padding to all four sides
                           child: Text(post.age),
                         ),
                         Padding(
-                          padding: EdgeInsets.all(
-                              20), //apply padding to all four sides
+                          padding: EdgeInsets.fromLTRB(20, 30, 3.0, 4.0),//apply padding to all four sides
                           child: Text(
                             "Sexo:",
                             style: TextStyle(fontWeight: FontWeight.bold),
                           ),
                         ),
                         Padding(
-                          padding: EdgeInsets.all(
-                              1), //apply padding to all four sides
+                          padding: EdgeInsets.fromLTRB(1, 30, 3.0, 4.0), //apply padding to all four sides
                           child: Text(post.gender),
                         ),
                       ],
@@ -119,16 +116,14 @@ class _PostViewState extends State<PostView> {
                     Row(
                       children: <Widget>[
                         Padding(
-                          padding: EdgeInsets.all(
-                              10), //apply padding to all four sides
+                          padding: EdgeInsets.fromLTRB(10, 20, 3.0, 4.0), //apply padding to all four sides
                           child: Text(
                             "Descripción: ",
                             style: TextStyle(fontWeight: FontWeight.bold),
                           ),
                         ),
                         Padding(
-                          padding: EdgeInsets.all(
-                              1), //apply padding to all four sides
+                          padding: EdgeInsets.fromLTRB(1, 20, 3.0, 4.0), //apply padding to all four sides
                           child: Text(post.description),
                         ),
                       ],
@@ -136,17 +131,15 @@ class _PostViewState extends State<PostView> {
                     Row(
                       children: <Widget>[
                         Padding(
-                          padding: EdgeInsets.all(
-                              10), //apply padding to all four sides
+                          padding: EdgeInsets.fromLTRB(10, 20, 3.0, 4.0), //apply padding to all four sides
                           child: Text(
-                            "Fecha: ",
+                            "Fecha:",
                             style: TextStyle(fontWeight: FontWeight.bold),
                           ),
                         ),
                         Padding(
-                          padding: EdgeInsets.all(
-                              1), //apply padding to all four sides
-                          child: Text(DateFormat('dd/MM/yyyy').format(post.date.toLocal()),
+                          padding: EdgeInsets.fromLTRB(1, 20, 3.0, 4.0), //apply padding to all four sides
+                          child: Text(DateFormat('dd/MM/yyyy KK:mm:ss').format(post.date.toLocal()),
       ),
                         ),
                       ],
