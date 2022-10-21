@@ -21,13 +21,11 @@ class PostView extends StatefulWidget {
 
 class _PostViewState extends State<PostView> {
 
-  String appBarTitle = "Preston Smith";
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBarWidget(widget._postViewArguments.marker!.title, 55),
       body: _buildBody(context),
-      appBar: AppBarWidget(appBarTitle, 55),
     );
   }
 
@@ -43,7 +41,6 @@ class _PostViewState extends State<PostView> {
       if (state is StatePostDataRetrieved) {
         Post post = state.post;
         widget._postViewArguments.post = post;
-        appBarTitle = post.title;
 
         return Column(
           mainAxisAlignment: MainAxisAlignment.start,
