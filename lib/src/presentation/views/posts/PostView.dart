@@ -9,6 +9,7 @@ import '../../blocs/viewPost/PostBloc.dart';
 import '../../blocs/viewPost/PostEvent.dart';
 import '../../blocs/viewPost/PostState.dart';
 import '../../navigation/PostViewArguments.dart';
+import 'package:intl/intl.dart';
 
 class PostView extends StatefulWidget {
   PostViewArguments _postViewArguments;
@@ -30,7 +31,7 @@ class _PostViewState extends State<PostView> {
   }
 
   Widget _buildBody(BuildContext context) {
-    final locale = AppLocalizations.of(context)!;
+
     return BlocBuilder<PostBloc, ViewStates>(builder: (_, state) {
       if (state is StateLoading) {
         _.read<PostBloc>().add(RenderPost(widget._postViewArguments.postId!));
@@ -145,7 +146,8 @@ class _PostViewState extends State<PostView> {
                         Padding(
                           padding: EdgeInsets.all(
                               1), //apply padding to all four sides
-                          child: Text(post.date.toLocal().toString()),
+                          child: Text(DateFormat('dd/MM/yyyy').format(post.date.toLocal()),
+      ),
                         ),
                       ],
                     ),
